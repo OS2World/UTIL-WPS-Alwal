@@ -1,0 +1,14 @@
+ INST.EXE     ... インストーラ
+ ALWALTFX.EXE ... 実行ファイル
+ ALWALTFX.DLL ... 実行時ライブラリ
+ ALWAREXX.DLL ... REXXマクロ用実行時ライブラリ
+ ALWATASK.DLL ... 「タスクスイッチャ置換」機能用実行時ライブラリ
+ ALWALTFX.DOC ... ドキュメントファイル
+ HISTORY.TXT  ... 変更履歴ファイル
+ REXXMAC.LZH  ... REXXマクロ解説及びサンプルファイルのアーカイブ
+ OTHER.LZH    ... その他のファイルのアーカイブ
+ FILES.TXT    ... このファイル
+ 
+ ※実行時に必須なのは、ALWALTFX.EXE と ALWALTFX.DLL の２ファイルのみです。
+ 　（「REXXマクロ」機能使用時には、ALWAREXX.DLL も必要）
+ 　（「タスクスイッチャ置換」機能使用時には、ALWATASK.DLL も必要）

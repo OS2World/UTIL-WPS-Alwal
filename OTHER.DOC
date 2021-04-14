@@ -1,0 +1,29 @@
+■OTHER.LZH の中身
+ 
+ 　ALWALTFR.RC  ... リソースファイル(ALWALTFX.EXE用)
+ 　ALWALTFX.ICO ... アイコンファイル(同上)
+ 　INSTR.RC     ... リソースファイル(INST.EXE用)
+ 　ALWATASK.LZH ... タスクスイッチャ（ALWATASK.DLL）のソースファイル
+ 　OTHER.DOC    ... このファイル
+ 
+ 
+ 
+■ALWALTFR.RC , ALWALTFX.ICO , INSTR.RC
+ 
+ 　リソースを直接カスタマイズしたい、という濃い人のために用意しました(笑)。
+ 　具体的なコンパイルの方法などは、それぞれリソースファイルの中身を参照し
+ て下さい。
+ 
+ 
+ 
+■ALWATASK.LZH
+ 
+ 　タスクスイッチャ（ALWATASK.DLL）のソースファイルです。
+ 　具体的なコンパイルの方法などは、その中の ALWATASK.DOC を参照して下さい。
+ 
+ 
+ 
+ ※これらのファイルの取り扱いについては、ALWALTFX.DOC の「その他」の内容に
+ 　準ずるものとします。
+ 
+[EOF]

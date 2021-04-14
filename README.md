@@ -8,7 +8,7 @@ A PM and REXX program to create alternative WPS functions as a japanese version.
 * 
  
 ## AUTHORS
-* 
+* A.Y.DAYO
 
 ## LINKS
 * 

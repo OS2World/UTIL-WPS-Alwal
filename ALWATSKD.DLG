@@ -1,0 +1,22 @@
+DLGINCLUDE 1 "alwatskd.h"
+
+DLGTEMPLATE ALWATASK_SETTING_MAIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "ALWATASK - 設定", ALWATASK_SETTING_MAIN, 0, 0, 268, 132, 
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "非表示タイトル(~H):", ALWATASK_SETTING_TEXT_HIDE, 6, 
+                        114, 78, 12, DT_VCENTER | DT_MNEMONIC
+        LISTBOX         ALWATASK_SETTING_LBOX_HIDE, 6, 18, 96, 96
+        PUSHBUTTON      "削除(~D)", ALWATASK_SETTING_PBTN_REMOVE, 108, 18, 
+                        40, 14, WS_GROUP | WS_DISABLED
+        PUSHBUTTON      "追加(~A)", ALWATASK_SETTING_PBTN_ADD, 120, 100, 40, 
+                        14, WS_GROUP | WS_DISABLED
+        LTEXT           "現行タスクタイトル(~N):", 
+                        ALWATASK_SETTING_TEXT_SOURCE, 166, 114, 96, 12, 
+                        DT_VCENTER | DT_MNEMONIC
+        LISTBOX         ALWATASK_SETTING_LBOX_SOURCE, 166, 18, 96, 96
+        PUSHBUTTON      "再読込(~R)", ALWATASK_SETTING_PBTN_RELOAD, 222, 2, 
+                        40, 14
+    END
+END

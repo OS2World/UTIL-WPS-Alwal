@@ -1,0 +1,53 @@
+■ALWATASK.LZH の中身
+ 
+ 　ALWATASK.DOC  ... このファイル
+ 　ALWATASK.C    ... メインソースファイル
+ 　ALWATSKS.C    ... 設定ソースファイル
+ 　ALWATASK.H    ... メインヘッダファイル
+ 　ALWATSKS.H    ... 設定ヘッダファイル
+ 　TEST.C        ... デバッグ用EXEファイル作成用ソースファイル
+ 　ALWATSKD.H    ... ダイアログヘッダファイル
+ 　ALWATSKD.DLG  ... ダイアログソースファイル
+ 　ALWATSKD.RES  ... ダイアログバイナリファイル
+ 　ALWATASK.DEF  ... モジュール定義ファイル（DLL用）
+ 　MAKEEXE.MAK   ... メイクファイル（EXE用）
+ 　MAKEDLL.MAK   ... メイクファイル（DLL用）
+ 
+ 　これらは、ALWALTFX の「タスクスイッチャ置換」機能を有効にすると組み込ま
+ れる代替タスクスイッチャモジュール ALWATASK.DLL のソースファイルです。
+ 
+ 
+■作り方
+ 
+ 　オリジナルの開発環境は、IBM-C Set++ J2.1 です。
+ 　他の開発環境でビルドを行う場合は、適宜に下記の説明を読み変え、またメイ
+ クファイルを書き換えるなどして下さい。
+ 
+ 　ALWATASK.DLL を作成するには、MAKEDLL.MAK を用いてメイクします。
+ 
+ 　　　　[C:\ALWALTFX]nmake /f makedll.mak
+ 
+ 　また、単独で実行可能なEXEファイル（TEST.EXE）を作成することもできます。
+ ソースレベルデバッガ（IPMD）を用いてのデバッグ等は、こちらで行うと良いで
+ しょう。TEST.EXE を作成するには、MAKEEXE.MAK を用いてメイクします。
+ 
+ 　　　　[C:\ALWALTFX]nmake /f makeexe.mak
+ 
+ 　なお、EXEファイルとして実行→表示を行った場合、(Shift+)TABキー操作を正
+ しく受け取れません。
+ （ALWALTFXのDLLとして組み込まれた場合は、ALWALTFXが面倒見るので問題無い）
+ 
+ 　また、ダイアログ・リソースファイルは、「ダイアログ・エディター」で直接
+ 編集可能です。
+ 
+ 　　　　[C:\ALWALTFX]dlgedit alwatskd.res
+ 
+ 　ALWALTFX に組み込み可能なDLLファイルを作成するための必須コードは、全て
+ ALWATASK.H ALWATASK.C 及び ALWATASK.DEF に含まれています。
+ 　詳しくは、ソース内のコメントを参照して下さい。
+ 
+ 
+ ※これらのファイルの取り扱いについては、ALWALTFX.DOC の「その他」の内容に
+ 　準ずるものとします。
+ 
+[EOF]

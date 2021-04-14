@@ -1,0 +1,1549 @@
+<html>
+<head><meta http-equiv="content-type" content="text/html;charset=Shift_JIS">
+<title>
+ALWALTFX - REXXマクロリファレンス(ver 3.4)
+</title>
+</head>
+<body>
+<h2 align=left>■目次</h2>
+<ul>
+<li><p><!--　・--><a href="#REXXMAC.LZH の中身">REXXMAC.LZH の中身</a>
+</p>
+<li><p><!--　・--><a href="#ALWALTFX用REXX関数概要">ALWALTFX用REXX関数概要</a>
+</p>
+<li><p><!--　・--><a href="#REXXマクロの仕様">REXXマクロの仕様</a>
+</p>
+<li><p><!--　・--><a href="#関数リファレンス">関数リファレンス</a>
+</p>
+<li><p><!--　・--><a href="#他のセッションでの使用">他のセッションでの使用</a>
+</p></ul><font size=7><br></font>
+
+
+<a name="REXXMAC.LZH の中身"></a><hr><h2 align=left>■REXXMAC.LZH の中身</h2>
+
+<pre><tt>  REXXMAC.HTM   ...  このファイル
+  SPLITTAG.CMD  ...      〃    をプレーンテキストに変換するREXXスクリプト
+  AAFXSUSP.CMD  ...  REXXマクロサンプル
+  ALEXTSRT.CMD  ...  　　　〃
+  CENTERMP.CMD  ...  　　　〃
+  CLICK.CMD     ...  　　　〃
+  CLOSE.CMD     ...  　　　〃
+  ENTERKEY.CMD  ...  　　　〃
+  MENUSPY.CMD   ...  　　　〃
+  PRESSMAX.CMD  ...  　　　〃
+  PTRMOVE.CMD   ...  　　　〃
+  QRYSHUTD.CMD  ...  　　　〃
+  SYSMENU.CMD   ...  　　　〃
+  TASKSW.CMD    ...  　　　〃
+  TOFOCUS.CMD   ...  　　　〃
+  WPSETUP.CMD   ...  　　　〃</tt></pre>
+<p>
+　サンプルファイルの使い方は、各ファイル先頭のコメントを参照して下さい。<br>
+<p>
+　なお、このドキュメントは、REXX言語を一通り把握されている（標準関数及びユーティリティ関数を用いて、独自の CMD ファイルが書ける）方を対象に記述されています。<br>
+　REXX言語そのものについての詳しい解説は、オンラインドキュメントの「REXX情報」を参照して下さい。<br>
+<font size=7><br></font>
+
+
+<a name="ALWALTFX用REXX関数概要"></a><hr><h2 align=left>■ALWALTFX用REXX関数概要</h2>
+<p>
+　以下のような関数が用意されています。<br>
+<dl>
+<dt>・警告音系<br>
+<dd>
+<pre><tt>  <a href="#ArxAlarm">ArxAlarm</a>               ... 警告音
+  <a href="#ArxBeep">ArxBeep</a>                ... Beep音</tt></pre>
+
+<dt>・キー操作系<br>
+<dd>
+<pre><tt>  <a href="#ArxPutKey">ArxPutKey</a>              ... キー入力
+  <a href="#ArxPutString">ArxPutString</a>           ... 文字列入力
+  <a href="#ArxReplaceKey">ArxReplaceKey</a>          ... キー入力置換
+  <a href="#ArxEditFunc">ArxEditFunc</a>            ... 入力フィールド特殊操作
+  <a href="#ArxQueryEditSelText">ArxQueryEditSelText</a>    ... 入力フィールド選択範囲内テキスト取得
+  <a href="#ArxReplaceEditSelText">ArxReplaceEditSelText</a>  ... 入力フィールド選択範囲内テキスト置換
+  <a href="#ArxQueryEditCursorPos">ArxQueryEditCursorPos</a>  ... 入力フィールドカーソル位置取得
+  <a href="#ArxSetEditCursorPos">ArxSetEditCursorPos</a>    ... 入力フィールドカーソル位置設定
+  <a href="#ArxKeyRecord">ArxKeyRecord</a>           ... キー操作記録/再生
+  <a href="#ArxQueryACSKeyState">ArxQueryACSKeyState</a>    ... Alt,Ctrl,Shift押し下げ状態取得
+  <a href="#ArxSetACSKeyState">ArxSetACSKeyState</a>      ... Alt,Ctrl,Shift押し下げ状態設定</tt></pre>
+
+<dt>・マウス操作系<br>
+<dd>
+<pre><tt>  <a href="#ArxQueryPointerPos">ArxQueryPointerPos</a>     ... マウスカーソル位置取得
+  <a href="#ArxSetPointerPos">ArxSetPointerPos</a>       ... マウスカーソル位置設定
+  <a href="#ArxQueryMouseButton">ArxQueryMouseButton</a>    ... マウスボタン状態取得
+  <a href="#ArxPutMouseButton">ArxPutMouseButton</a>      ... マウスボタン操作
+  <a href="#ArxReplaceMouseButton">ArxReplaceMouseButton</a>  ... マウスボタン操作置換</tt></pre>
+
+<dt>・ウィンドウ系<br>
+<dd>
+<pre><tt>  <a href="#ArxQueryScreenSize">ArxQueryScreenSize</a>     ... スクリーンサイズ取得
+  <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a>     ... ウィンドウ位置/サイズ等の情報取得
+  <a href="#ArxSetWindowPos">ArxSetWindowPos</a>        ... ウィンドウ位置/サイズ設定
+  <a href="#ArxQueryWindowString">ArxQueryWindowString</a>   ... ウィンドウ文字列取得
+  <a href="#ArxSetWindowString">ArxSetWindowString</a>     ... ウィンドウ文字列設定
+  <a href="#ArxInvalidateRect">ArxInvalidateRect</a>      ... ウィンドウ再描画
+  <a href="#ArxQueryWindowHandle">ArxQueryWindowHandle</a>   ... ウィンドウ・ハンドル値取得
+  <a href="#ArxEnumWindowHandle">ArxEnumWindowHandle</a>    ... 子ウィンドウ・ハンドル値取得
+  <a href="#ArxIsWindow">ArxIsWindow</a>            ... ウィンドウの存在確認</tt></pre>
+
+<dt>・メッセージ系<br>
+<dd>
+<pre><tt>  <a href="#ArxSysCommand">ArxSysCommand</a>          ... システムメニューコマンド実行
+  <a href="#ArxReplaceCommand">ArxReplaceCommand</a>      ... コマンド置換
+  <a href="#ArxSendMessage">ArxSendMessage</a>         ... メッセージ送信
+  <a href="#ArxPostMessage">ArxPostMessage</a>         ... メッセージ通知
+  <a href="#ArxQueryMsgParam">ArxQueryMsgParam</a>       ... メッセージパラメータ参照
+  <a href="#ArxAllocTempMem">ArxAllocTempMem</a>        ... 作業用メモリ割り当て
+  <a href="#ArxQueryTempMemImage">ArxQueryTempMemImage</a>   ... 作業用メモリ参照
+</tt></pre>
+
+<dt>・システム設定系<br>
+<dd>
+<pre><tt>  <a href="#ArxQuerySysInfo">ArxQuerySysInfo</a>        ... システム情報取得
+  <a href="#ArxQuerySysValue">ArxQuerySysValue</a>       ... システム値取得
+  <a href="#ArxSetSysValue">ArxSetSysValue</a>         ... システム値設定</tt></pre>
+
+<dt>・スクリプト補助系<br>
+<dd>
+<pre><tt>  <a href="#ArxMPFROM2SHORT">ArxMPFROM2SHORT</a>        ... メッセージパラメタ値作成
+  <a href="#ArxMPFROMSH2CH">ArxMPFROMSH2CH</a>         ...           〃
+  <a href="#ArxCHARXFROMMP">ArxCHAR1FROMMP</a>         ... メッセージパラメタ値分解
+  <a href="#ArxCHARXFROMMP">ArxCHAR2FROMMP</a>         ...          〃
+  <a href="#ArxCHARXFROMMP">ArxCHAR3FROMMP</a>         ...          〃
+  <a href="#ArxCHARXFROMMP">ArxCHAR4FROMMP</a>         ...          〃
+  <a href="#ArxSHORTXFROMMP">ArxSHORT1FROMMP</a>        ...          〃
+  <a href="#ArxSHORTXFROMMP">ArxSHORT2FROMMP</a>        ...          〃
+  <a href="#ArxSHORTXFROMMP">ArxSHORT1FROMMR</a>        ... メッセージリザルト値分解
+  <a href="#ArxSHORTXFROMMP">ArxSHORT2FROMMR</a>        ...          〃
+  <a href="#ArxD2X">ArxD2X</a>                 ... 10進値→16進値変換
+  <a href="#ArxX2D">ArxX2D</a>                 ... 16進値→10進値変換
+  <a href="#ArxC2X">ArxC2X</a>                 ... 文字列→16進値変換
+  <a href="#ArxX2C">ArxX2C</a>                 ... 16進値→文字列変換
+  <a href="#Arx_LogicOpe">ArxNOT</a>                 ... 論理演算(NOT)
+  <a href="#Arx_LogicOpe">ArxAND</a>                 ...    〃   (AND)
+  <a href="#Arx_LogicOpe">ArxOR</a>                  ...    〃   (OR)
+  <a href="#Arx_LogicOpe">ArxXOR</a>                 ...    〃   (XOR)
+  <a href="#Arx_LogicOpe">ArxNAND</a>                ...    〃   (NAND)
+  <a href="#Arx_LogicOpe">ArxNOR</a>                 ...    〃   (NOR)</tt></pre>
+
+<dt>・その他系<br>
+<dd>
+<pre><tt>  <a href="#ArxQueryAlwaltfxStatus">ArxQueryAlwaltfxStatus</a> ... ALWALTFX の実行状態確認
+  <a href="#ArxLoadFuncs">ArxLoadFuncs</a>           ... 関数一括ロード
+  <a href="#ArxDropFuncs">ArxDropFuncs</a>           ... 関数一括アンロード
+  <a href="#ArxVersion">ArxVersion</a>             ... バージョン取得</tt></pre>
+</dl>
+　各々の関数の詳細については、後述「<a href="#関数リファレンス">関数リファレンス</a>」を参照して下さい。<br>
+<font size=7><br></font>
+
+
+<a name="REXXマクロの仕様"></a><hr><h2 align=left>■REXXマクロの仕様</h2>
+<font size=6><br></font>
+<!--・--><ul>
+<li>
+　基本的に、OS/2 コマンドファイルとしてのREXXスクリプトファイルと、全く同じ記述法でＯＫです。<br>
+<p>
+<!--・-->
+<li>
+　マクロ実行中は、デスクトップ全体にてキー/マウス入力が行えなくなります。<br>
+（よく言われる「アプリケーションが入力キューを掴みっぱなし」状態になる）<br>
+　よって、あまり時間がかかる処理をマクロとして登録/実行するのは、好ましくありません。また、「PULL」「SysGetKey」「RxMessageBox」等の関数を用いる等してキー入力待ち状態を発生させないようにして下さい。<br>
+（その他、「SysTextScreenSize」等のVIO画面に依存した関数も使用不可）<br>
+<p>
+<!--・-->
+<li>
+　スクリプトは、戻り値 0（または指定無し）で正常終了と見なされ、それ以外の数値を戻すと、「警告」音を鳴らします。<br>
+　また、スクリプトがエラーで中断した場合は、「エラー」音を鳴らします。<br>
+（警告音を鳴らす以外の処理の相違はありません）<br>
+<p>
+<!--・-->
+<li>
+　本機能により、模擬的にキー入力やマウス入力などを行う事が可能ですが、模擬入力による動作と、実際にキーやマウスを操作しての入力による動作が必ずしも一致するとは、保証できません。<br>
+　特に、REXXスクリプト実行中にフォーカスが変化する操作（メニューの表示、フレームのトラッキング等）が発生すると、十中八九誤動作します。<nobr><tt>(^^;)</tt></nobr><br>
+<p>
+<!--・-->
+<li>
+　「<b>キー操作拡張：REXXマクロ</b>」機能によりスクリプトが呼び出された場合、そのキー操作は「使われた」と見なされ、そのキー入力はアプリケーションには届かなくなります。<br>
+（届くようにする事も可能、<a href="#ArxReplaceKey">ArxReplaceKey</a> を参照）<br>
+<p>
+<!--・-->
+<li>
+　それ以外の機能によりスクリプトが呼び出された場合は、特に処理は行わず、その操作（例えばマウスボタン押し下げ）は必ずアプリケーションにも通知されます。<br>
+（破棄する事も可能、<a href="#ArxReplaceMouseButton">ArxReplaceMouseButton</a> 及び <a href="#ArxReplaceCommand">ArxReplaceCommand</a> を参照）<br>
+</ul><font size=7><br></font>
+
+
+<a name="関数リファレンス"></a><hr><h2 align=left>■関数リファレンス</h2>
+<font size=6><br></font>
+<h3 align=left>●共通仕様</h3>
+<p>
+<!--・--><ul>
+<li>
+　REXXスクリプトがマクロとして呼び出された際には、既に自動ロードされています。よって「RXFUNCADD」による別途ロードは必要ありません。<br>
+<p>
+<!--・-->
+<li>
+　引数に、大文字/小文字の区別はありません。<br>
+（全角/半角の区別はあります）<br>
+<p>
+<!--・-->
+<li>
+　「省略可」と明記されている引数について、特に省略時の仕様が別記されていない場合、その引数に長さ 0 の文字列を指定した場合も、「省略した」のと同じ扱いとなります。<br>
+（例えば、「CALL <a href="#ArxBeep">ArxBeep</a> 500,''」は「CALL <a href="#ArxBeep">ArxBeep</a> 500」と同じ扱い）<br>
+<p>
+<!--・-->
+<li>
+　引数に数値を指定する場合は、10進数または16進数が指定可能です。16進数を指定する場合は、16進文字列の先頭に 'H' の字を付加します。<br>
+
+<pre><tt>      例：'HFFFF' ... 16進数の FFFF = 10進数の 65535 と同じ扱いになる
+</tt></pre>
+<!--・-->
+<li>
+　関数からの戻り値が16進数である場合も同様に、先頭に 'H' が付加されます。<br>
+<p>
+<!--・-->
+<li>
+　因数に数値を指定する場合、32bit値の範囲に収まっていなければなりません。<br>
+（範囲外の値を指定した場合の動作は不定です）<br>
+<p>
+<!--・-->
+<li>
+　特に記述が無い場合、関数は正常終了で 1、異常終了で 0 を返します。<br>
+<p>
+<!--・-->
+<li>
+　引数指定に誤り（個数不足or過多、スペルミス等）がある場合は、スクリプトそのものを中断します。<br>
+<p>
+<!--・-->
+<li>
+　関数名（見出し）の右側にある <b>[KEY] [MOU] [WIN] [OTH]</b> の記述は、それぞれ「<b>キー操作拡張</b>」「<b>マウス操作拡張</b>」「<b>ウィンドウ制御</b>」の「REXXマクロ」機能からの呼び出し、及び<a href="#他のセッションでの使用">他のセッションから呼び出し</a>（後述）が可能である事を意味しています。<br>
+（何かしら特殊な制限がある場合もあるので、各々の説明を参照のこと）<br>
+<p>
+<!--・-->
+<li>
+　同じく <b>[3.4]</b> 等の記述は、その ALWALTFX のバージョン以降で追加/仕様拡張された関数である事を意味しています。<br>
+</ul>
+<font size=6><br></font>
+
+<a name="ArxAlarm"></a><hr><h3 align=left>●ArxAlarm</h3><div align=right>
+                                                    [KEY][MOU][WIN][OTH]</div>
+<p>
+機能：PM標準の警告音を鳴らします<br>
+<p>
+構文：rc = ArxAlarm( type )<br>
+
+<pre><tt>              type ... 警告音タイプ</tt></pre>
+<p>
+　警告音タイプに指定できる文字列は、以下の通りです。<br>
+
+<pre><tt>          WARNING ... 「警告」音
+          NOTE    ... 「情報」音
+          ERROR   ... 「エラー」音</tt></pre>
+<p>
+例：
+<pre><tt>          CALL ArxAlarm 'ERROR'  /* 「エラー」音を鳴らす */</tt></pre><br>
+<font size=6><br></font>
+
+<a name="ArxBeep"></a><hr><h3 align=left>●ArxBeep</h3><div align=right>
+                                                    [KEY][MOU][WIN][OTH]</div>
+<p>
+機能：内蔵スピーカーを用いたBeep音を鳴らします<br>
+<p>
+構文：rc = ArxBeep( freq , dur )<br>
+
+<pre><tt>              freq ... 周波数（ヘルツ単位）
+              dur  ... 鳴動時間（ミリ秒単位、省略可）</tt></pre>
+<p>
+　鳴動時間の省略時値は 100 です。<br>
+<p>
+例：
+<pre><tt>          CALL ArxBeep 880,40    /* 「警告」音 */
+          CALL ArxBeep 1760,100  /* 「情報」音 */
+          CALL ArxBeep 440,120   /* 「エラー」音 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxPutKey"></a><a name="ArxPutString"></a><hr><h3 align=left>●ArxPutKey / ArxPutString</h3><div align=right>
+                                                         [KEY][MOU][WIN]</div>
+<p>
+機能：模擬的にキー入力/文字列入力を行います<br>
+<p>
+構文：rc = ArxPutKey( key , shift )<br>
+　　　rc = ArxPutString( string )<br>
+
+<pre><tt>              key     ... 押し下げ対象キー
+              shift   ... 押し下げ状態とする制御キー（省略可）
+              string  ... 入力対象文字列</tt></pre>
+<p>
+　押し下げ対象キーは、英数字等の１字か、以下の文字列のどれか１つを指定します。<br>
+
+<pre><tt>          BREAK      CTRL       PAGEDOWN   DOWN       F1  F7
+          BACKSPACE  ALT        END        PRINTSCRN  F2  F8
+          TAB        PAUSE      HOME       INSERT     F3  F9
+          BACKTAB    ESC        LEFT       DELETE     F4  F10
+          NEWLINE    SPACE      UP         ENTER      F5  F11
+          SHIFT      PAGEUP     RIGHT      SYSRQ      F6  F12</tt></pre>
+<p>
+　押し下げ対象キーに、上記以外の２字以上の長さの文字列を指定した場合、エラーになります。複数の入力を連続して行いたい場合は、<b>ArxPutKey</b> を複数回呼び出すか、<b>ArxPutString</b> を用います。<br>
+<p>
+　制御キーは、「<b>ALT</b>」「<b>CTRL</b>」「<b>SHIFT</b>」の文字列の組み合わせで指定します。その文字列の中に '<b>A</b>' '<b>C</b>' '<b>S</b>' の字が含まれているかどうかで、押し下げ対象とするかどうかを決めるので、先頭の１字以外は省略可能です。<br>
+<p>
+　これらの関数を使用するにあたっての注意点を、以下に列挙します。<br>
+<p>
+<!--・--><ul>
+<li>
+　DOS窓及びWin-OS2アプリ（シームレス）に対しては効果がありません。<br>
+（これは後述の <a href="#ArxReplaceKey">ArxReplaceKey</a> も同様）<br>
+<p>
+<!--・-->
+<li>
+　指定されたキー操作が、アプリケーション特有のキーボードアクセラレータとして定義（例えば、「OS/2 システム・エディター」の「F3→クローズ」など）されている場合は、正しくキー入力状態をエミュレートできません。<br>
+（後述の <a href="#ArxReplaceKey">ArxReplaceKey</a> であれば可能）<br>
+<p>
+<!--・-->
+<li>
+　関数の引数に指定された制御キーと、実際に押し下げられている制御キーの状態が一致しない場合に、期待したように動作しない事があります。<br>
+（後述の <a href="#ArxSetACSKeyState">ArxSetACSKeyState</a> も参照）<br>
+<p>
+<!--・-->
+<li>
+　１回のスクリプト実行で模擬入力可能な字数に、ある程度制限があります。<br>
+（筆者の環境では200字強...キー及びマウス入力はスクリプト終了後に一括処理するというマクロの仕様に起因する）<br>
+<p>
+<!--・-->
+<li>
+　REXXスクリプトが、「<b>キー操作拡張：REXXマクロ</b>」機能から呼び出されている場合、模擬入力指定に、REXXマクロ機能を呼び出すのと同じキー割り当てを指定してこの関数を使用すると、マクロ実行 → 模擬キー入力 → マクロ実行...の<b>無限ループ</b>に陥る事になるので、そういうプログラミングは行わないように、注意して下さい。<br>
+　なお、この現象を発生させてしまった場合は、「Ctrl+ESC」操作で「<i>このプログラムは，システムの要求に応答していません。</i>」ウィンドウを出して、<b>ALWALTFX を強制終了させて下さい</b>。<br>
+<p>
+<!--・-->
+<li>
+　これらの関数は、（キーまたはマウスによる操作が可能な）フォーカス・ウィンドウが存在する場合のみ使用可能です。<br>
+　「<b>キー操作拡張：REXXマクロ</b>」機能、または「<b>マウス操作拡張：REXXマクロ</b>」機能から呼び出されている場合は、ほぼ問題無く使用できますが、「<b>ウィンドウ制御：REXXマクロ</b>」機能からの場合、トリガであるメッセージの種類如何では、関数呼び出しが失敗（戻り値=0）する可能性があります。<br>
+</ul>
+例：
+<pre><tt>          CALL ArxPutKey 'あ'              /* 「あ」の１字を模擬入力 */
+          CALL ArxPutKey 'C','Ctrl'        /* Ctrl+C 操作を模擬入力 */
+          CALL ArxPutString DATE() TIME()  /* 日付/時刻の文字列を入力 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxReplaceKey"></a><hr><h3 align=left>●ArxReplaceKey</h3><div align=right>
+                                                                   [KEY]</div>
+<p>
+機能：REXXスクリプトを呼び出した、現行のキー入力を置換します<br>
+<p>
+構文：rc = ArxReplaceKey( key , shift )<br>
+
+<pre><tt>              key    ... 押し下げ対象キー、または置換の無効指示
+              shift  ... 押し下げ状態とする制御キー（省略可）</tt></pre>
+<p>
+　各引数の指定方法は、<a href="#ArxPutKey">ArxPutKey</a> と同じです。<br>
+<p>
+　<a href="#ArxPutKey">ArxPutKey</a> と <b>ArxReplaceKey</b> の違いですが、<a href="#ArxPutKey">ArxPutKey</a> の場合、（マクロ終了後に）新しくキー入力状態を作り出すのに対し、<b>ArxReplaceKey</b> では、（マクロを呼び出した）現行キー入力そのものを、新しいキー入力に置換し、アプリケーションに渡します。<br>
+　また、<b>ArxReplaceKey</b> で指定された新しいキー入力は、REXXマクロ機能を呼び出すのと同じキー割り当てを指定しても、REXXマクロ機能の（再）呼び出し対象にはなりませんし、そのアプリケーション特有のキーボードアクセラレータとして定義されている操作（例えば、「OS/2 システム・エディター」の「F3→クローズ」など）に該当する場合でも、それも含めてキー入力をエミュレートします。<br>
+<p>
+　よって、<a href="#ArxPutKey">ArxPutKey</a> よりも高いキーレスポンス＆実際のキー入力との互換性を期待できます。ただし、この関数で行われる処理は、あくまでも現行キー入力の置換ですので、<b>ArxReplaceKey</b> を複数回呼び出しても、結果が有効であるのは最後の１回のみです。<br>
+<p>
+　押し下げ対象キーに「<b>DEFAULT</b>」を指定すると、REXXマクロを呼び出したキー入力を、そのままアプリケーションに渡すようにします。<br>
+（通常、REXXマクロを呼び出したキー入力は、アプリケーションには届きません）<br>
+　これは、「特定のシチュエーションでのみマクロ実行/それ以外の場合はそのままのキー入力」という処理を実装する場合に便利です。<br>
+　同じく、「<b>CANCEL</b>」を指定すると、それまでに <b>ArxReplaceKey</b> で指定したキー入力置換を取り消します。<br>
+<p>
+　なお、同一スクリプト内で <a href="#ArxPutKey">ArxPutKey</a>(<a href="#ArxPutString">ArxPutString</a>) と <b>ArxReplaceKey</b> の両方を使用した場合は、記述順序に関係無く、スクリプト終了後に <b>ArxReplaceKey</b>→ <a href="#ArxPutKey">ArxPutKey</a>(<a href="#ArxPutString">ArxPutString</a>) の順序で入力処理が行われます。<br>
+<p>
+　この関数は、「<b>キー操作拡張：REXXマクロ</b>」機能から呼び出されている場合のみ、使用可能です。<br>
+（それ以外の場合、何も処理を行わず 0 を返す）<br>
+<p>
+例：
+<pre><tt>          CALL ArxReplaceKey 'DEFAULT'    /* 現行キー入力を有効にする */
+          CALL ArxReplaceKey 'CANCEL'     /* 現行キー入力を無効に戻す */
+          CALL ArxReplaceKey 'TAB','Shift'
+                               /* 現行キー入力を Shift+TAB に置換する */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxEditFunc"></a><hr><h3 align=left>●ArxEditFunc</h3><div align=right>
+                                                    [3.1][KEY][MOU][WIN]</div>
+<p>
+機能：入力フィールドに対して特殊操作を行います<br>
+<p>
+構文：rc = ArxEditFunc( func )<br>
+
+<pre><tt>              func   ... 入力フィールドに対して行う操作(複数指定可)</tt></pre>
+<p>
+　操作に指定できる文字列は、以下の通りです。<br>
+
+<pre><tt>          UP             ... 上へ１つカーソル移動
+          DOWN           ... 下へ１つカーソル移動
+          LEFT           ... 左へ１つカーソル移動
+          RIGHT          ... 右へ１つカーソル移動
+          LINETOP        ... 行頭へカーソル移動
+          LINEBTM        ... 行末へカーソル移動
+          WINDOWTOP      ... 表示先頭行へカーソル移動
+          WINDOWBTM      ... 表示最終行へカーソル移動
+          NEXTWORD       ... 次の単語へカーソル移動
+          PREVWORD       ... 前の単語へカーソル移動
+          PAGEUP         ... ページアップ
+          PAGEDOWN       ... ページダウン
+          SELECTWORD     ... 単語選択
+          SELECTLINE     ... 行選択
+          SELECTALL      ... 全選択
+          CLRSELECT      ... 選択解除
+          TOUPPER        ... 選択範囲を大文字化
+          TOLOWER        ... 選択範囲を小文字化
+          CUT            ... 切り取り
+          COPY           ... コピー
+          PASTE          ... 貼り付け
+          INSERTMODE     ... 挿入モード
+          OVERWRITEMODE  ... 上書きモード</tt></pre>
+<p>
+　カーソル移動系など、Shiftキーの押し下げ状態如何で動作が変化する機能は、デフォルトでは（スクリプト実行時に実際に押し下げられていたとしても、仮想的に）押し下げ無しとして処理が行われます。<br>
+　Shiftキー押し下げ状態での動作を所望される場合は、<a href="#ArxSetACSKeyState">ArxSetACSKeyState</a> を用いて、仮想的に押し下げ状態に設定します（後述）。<br>
+<p>
+　因みに、入力フィールドが現在、挿入モードか上書きモードのどちらであるかは、後述のシステム値参照関数により確認することができます。<br>
+（具体的には、<a href="#ArxQuerySysValue">ArxQuerySysValue</a>('INSERTMODE') の戻り値が真か偽かで判断）
+<p>
+　この関数は、入力フィールド（単一行または複数行）にフォーカスが当たっている場合、且つ ALWALTFX の「<b>入力フィールドキー操作拡張</b>」機能、または「<b>入力フィールドマウス操作拡張</b>」機能が有効になっている場合のみ、使用可能です。<br>
+（それ以外の場合、何も処理を行わず 0 を返す）<br>
+　また、単一行入力フィールドに対して無効な操作...具体的には「UP」「DOWN」「WINDOWTOP」「WINDOWBTM」「PAGEUP」「PAGEDOWN」...の指定があった場合、及び READONLY 属性を持つ入力フィールドに対して「CUT」「PASTE」の指定があった場合も、0 を返します。<br>
+<p>
+例：
+<pre><tt>          CALL ArxEditFunc 'LINESELECT','COPY'
+                                        /* 行選択 → コピーを連続実行 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryEditSelText"></a><a name="ArxReplaceEditSelText"></a><hr><h3 align=left>●ArxQueryEditSelText / ArxReplaceEditSelText</h3><div align=right>
+                                                    [3.1][KEY][MOU][WIN]</div>
+<p>
+機能：入力フィールドの選択範囲内のテキストを取得/置換します<br>
+<p>
+構文：rc = ArxQueryEditSelText( name )<br>
+　　　rc = ArxReplaceEditSelText( string , cursor )<br>
+
+<pre><tt>              name    ... 文字列が入る変数名
+              string  ... 範囲選択部に代わりに挿入する文字列
+              cursor  ... 挿入後のカーソル位置（省略可）</tt></pre>
+<p>
+　挿入後のカーソル位置には、以下の文字列の何れかを指定します。<br>
+
+<pre><tt>          TOP         ... 挿入した文字列の先頭にカーソルを移動
+          BOTTOM      ... 挿入した文字列の末尾にカーソルを移動（省略時値）</tt></pre>
+<p>
+　範囲選択がされていない場合、<b>ArxQueryEditSelText</b> は長さ 0 の文字列を返し、<b>ArxReplaceEditSelText</b> は、カーソル位置に文字列を挿入します。<br>
+　また、入力フィールドのカーソルが上書きモードの場合、（反転表示になっている）カーソル位置の文字が取得/置換対象になります。<br>
+<p>
+　この関数は、入力フィールド（単一行または複数行）にフォーカスが当たっている場合のみ使用可能です。<br>
+（それ以外の場合、何も処理を行わず 0 を返す）<br>
+<p>
+例：
+<pre><tt>          OPTIONS EXMODE
+          CALL ArxQueryEditSelText 'text'
+          CALL ArxReplaceEditSelText TRANSLATE(text)
+                        /* 選択範囲内の半角英字を全て大文字に置換する */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryEditCursorPos"></a><hr><h3 align=left>●ArxQueryEditCursorPos</h3><div align=right>
+                                                    [3.1][KEY][MOU][WIN]</div>
+<p>
+機能：入力フィールドのカーソル位置を取得します<br>
+<p>
+構文：rc = ArxQueryEditCursorPos( stem , rad )<br>
+
+<pre><tt>              stem   ... 情報が入る変数（ステム）名
+              rad    ... 戻り値形式（省略可）</tt></pre>
+<p>
+　戻り値形式には、戻り値（省略時は10進数）に16進数を希望する場合に「<b>HEX</b>」を指定します。その文字列の中に '<b>H</b>' の字が含まれているかどうかで、戻り値形式を何れにするかを決めるので、先頭の１字以外は省略可能です。<br>
+<p>
+　関数が正常に終了すると、変数 stem に以下の値が設定されます。<br>
+
+<pre><tt>          stem.ANCHOR  ... 選択開始位置
+          stem.CURSOR  ... 選択終了位置
+          stem.FIRST   ... 表示先頭位置</tt></pre>
+<p>
+　入力フィールドにおいて範囲選択が行われていない場合、選択開始位置と選択終了位置は、同じ値になります。<br>
+　また、入力フィールドのカーソルが上書きモード/挿入モードの何れの場合でも、戻す値は同一です（挿入モードの時の値を帰す）。<br>
+<p>
+　この関数は、入力フィールド（単一行または複数行）にフォーカスが当たっている場合のみ使用可能です。<br>
+（それ以外の場合、何も処理を行わず 0 を返す）<br>
+<p>
+例：
+<pre><tt>          CALL ArxQueryEditCursorPos 'sel'
+          IF sel.ANCHOR\=sel.CURSOR THEN DO
+                  /* 以下、範囲選択されている場合のみ処理を続行 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxSetEditCursorPos"></a><hr><h3 align=left>●ArxSetEditCursorPos</h3><div align=right>
+                                                    [3.1][KEY][MOU][WIN]</div>
+<p>
+機能：入力フィールドのカーソル位置を設定します<br>
+<p>
+構文：rc = ArxSetEditCursorPos( anchor , cursor , first )<br>
+
+<pre><tt>              anchor  ... 選択開始位置（省略可）
+              cursor  ... 選択終了位置（省略可）
+              first   ... 表示先頭位置（省略可）</tt></pre>
+<p>
+　この関数は、任意の位置にカーソルをセットするためのものではなく、前述の<a href="#ArxQueryEditCursorPos">ArxQueryEditCursorPos</a> 関数で取得しておいたカーソル情報を復元するために用意されています。<br>
+　各引数に任意の値を指定する事について、特に制限はありません（省略された値は、現行の値を保持する）が、その場合の結果は保証されません。<br>
+<p>
+　この関数は、入力フィールド（単一行または複数行）にフォーカスが当たっている場合のみ使用可能です。<br>
+（それ以外の場合、何も処理を行わず 0 を返す）<br>
+<p>
+例：
+<pre><tt>          CALL <a href="#ArxQueryEditCursorPos">ArxQueryEditCursorPos</a> 'sel'
+          CALL <a href="#ArxEditFunc">ArxEditFunc</a> 'SELECTWORD','COPY'
+          CALL ArxSetEditCursorPos sel.ANCHOR,sel.CURSOR,sel.FIRST
+                      /* 単語選択 → コピー後、カーソル位置を元に戻す */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxKeyRecord"></a><hr><h3 align=left>●ArxKeyRecord</h3><div align=right>
+                                         [3.1][3.14][3.4][KEY][MOU][WIN]</div>
+<p>
+機能：キー操作の記録/再生を行います<br>
+<p>
+構文：rc = ArxKeyRecord( func )<br>
+
+<pre><tt>              func   ... 記録/再生操作</tt></pre>
+<p>
+　記録/再生操作に指定できる文字列は、以下の通りです。<br>
+
+<pre><tt>          START       ... 記録開始
+          STARTEX     ... 拡張記録開始
+          END         ... 記録終了
+          REPLAY      ... 再生
+          REPLAYDL    ... 遅延再生
+          BREAK       ... 記録強制中断
+          BUSY?       ... 記録中か否かの確認</tt></pre>
+<p>
+　記録中か否かの確認は、真の時に 1、偽の時に 0 を返します。<br>
+<p>
+　キー操作記録/再生機能については、ALWALTFX.DOC の「<b>PM(Alt+Function)キー操作拡張</b>」を参照して下さい。<br>
+<p>
+　この関数は、（キーまたはマウスによる操作が可能な）フォーカス・ウィンドウが存在する場合のみ使用可能です。<br>
+　「<b>キー操作拡張：REXXマクロ</b>」機能、または「<b>マウス操作拡張：REXXマクロ</b>」機能から呼び出されている場合は、ほぼ問題無く使用できますが、「<b>ウィンドウ制御：REXXマクロ</b>」機能からの場合、トリガであるメッセージの種類如何では、関数呼び出しが失敗（戻り値=0）する可能性があります。<br>
+<p>
+例：
+<pre><tt>          IF \ArxKeyRecord('BUSY?') THEN CALL ArxKeyRecord 'START'
+          ELSE CALL ArxKeyRecord 'END'
+                                  /* キー操作記録開始←→終了切り替え */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryACSKeyState"></a><hr><h3 align=left>●ArxQueryACSKeyState</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：制御キー(Alt,Ctrl,Shift)の押し下げ状態を取得します<br>
+<p>
+構文：rc = ArxQueryACSKeyState( flg )<br>
+
+<pre><tt>              flg  ... 取得フラグ（省略可）</tt></pre>
+<p>
+　押し下げ状態は、「<b>ALT</b>」「<b>CTRL</b>」「<b>SHIFT</b>」の文字列の組み合わせで返されます。<br>
+（複数の制御キーが押されている場合は、空白キャラで区切られる）<br>
+（１つも押されていない場合は、長さ０の文字列を返す）<br>
+<p>
+　REXXマクロが呼び出された直後から、REXXマクロによって作り出される模擬入力の処理中は、（仮想的に）制御キー押し下げ「無し」状態に設定されます。<br>
+（後述の <a href="#ArxSetACSKeyState">ArxSetACSKeyState</a> 関数により、押し下げ状態を変更する事もできる）<br>
+　<b>ArxQueryACSKeyState</b> を取得フラグ無しで呼び出した場合、戻されるのはREXXマクロ実行中の（仮想的な）制御キー押し下げ状態です。<br>
+　REXXマクロが呼び出される（押し下げ「無し」に設定される）直前の制御キー押し下げ状態を取得したい場合は、取得フラグに「<b>ORIGINAL</b>」指定します。その文字列の中に '<b>O</b>' の字が含まれているかどうかで、どちらの状態を返すかを決めるので、先頭の１字以外は省略可能です。<br>
+（<a href="#他のセッションでの使用">他のセッションからの呼び出し</a>である場合は、取得フラグは設定できません）<br>
+<p>
+例：
+<pre><tt>          IF POS('SHIFT',ArxQueryACSKeyState('Org')) THEN DO
+              /* 以下、'Shift'キーが押し下げられている場合の処理 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxSetACSKeyState"></a><hr><h3 align=left>●ArxSetACSKeyState</h3><div align=right>
+                                                         [KEY][MOU][WIN]</div>
+<p>
+機能：模擬的に制御キー(Alt,Ctrl,Shift)の押し下げ状態を設定します<br>
+<p>
+構文：rc = ArxSetACSKeyState( shift )<br>
+
+<pre><tt>              shift  ... 押し下げ状態とする制御キー（省略可）</tt></pre>
+<p>
+　制御キーは、「<b>ALT</b>」「<b>CTRL</b>」「<b>SHIFT</b>」の文字列の組み合わせで指定します。<br>
+その文字列の中に '<b>A</b>' '<b>C</b>' '<b>S</b>' の字が含まれているかどうかで、押し下げ対象とするかどうかを決めるので、先頭の１字以外は省略可能です。<br>
+<p>
+　REXXマクロが呼び出された直後から、REXXマクロによって作り出される模擬入力の処理中は、（仮想的に）制御キー押し下げ「無し」状態に設定されます。<br>
+　例えば、<a href="#ArxPutMouseButton">ArxPutMouseButton</a> によって「制御キー+クリック」操作を実現したい場合や、<a href="#ArxPutKey">ArxPutKey</a> によって「制御キー+任意キー」操作を指示したが、アプリケーション上でうまく動作しない場合などに、本関数を使用してみて下さい。<br>
+<p>
+　REXXマクロの仕様により、キー及びマウス入力はスクリプト終了後に一括処理されるため、<b>ArxSetACSKeyState</b> により設定された制御キー押し下げ状態は、スクリプトの何処に記述されていようとも、マクロ実行時に作り出されるキー及びマウス入力の全てに影響を及ぼす可能性があります。また、<b>ArxSetACSKeyState</b>を複数回呼び出しても、結果が有効であるのは最後の１回のみです。<br>
+<p>
+　この関数は、（キーまたはマウスによる操作が可能な）フォーカス・ウィンドウが存在する場合のみ使用可能です。<br>
+　「<b>キー操作拡張：REXXマクロ</b>」機能、または「<b>マウス操作拡張：REXXマクロ</b>」機能から呼び出されている場合は、ほぼ問題無く使用できますが、「<b>ウィンドウ制御：REXXマクロ</b>」機能からの場合、トリガであるメッセージの種類如何では、関数呼び出しが失敗（戻り値=0）する可能性があります。<br>
+<p>
+例：
+<pre><tt>          CALL ArxSetACSKeyState 'Alt' /* Altキーを押し下げ状態とする */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryPointerPos"></a><hr><h3 align=left>●ArxQueryPointerPos</h3><div align=right>
+                                                    [KEY][MOU][WIN][OTH]</div>
+<p>
+機能：現行のマウスポインタの位置を取得します<br>
+<p>
+構文：rc = ArxQueryPointerPos()<br>
+<p>
+　この関数は、スクリーン左下を原点としたＸ/Ｙ座標の値が、１スペース区切りで繋がった文字列を戻します。<br>
+<p>
+例：
+<pre><tt>          PARSE VALUE ArxQueryPointerPos() WITH px py
+                         /* 変数 px にＸ座標の、py にＹ座標の値が入る */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxSetPointerPos"></a><hr><h3 align=left>●ArxSetPointerPos</h3><div align=right>
+                                                    [KEY][MOU][WIN][OTH]</div>
+<p>
+機能：マウスポインタの位置を設定します<br>
+<p>
+構文：rc = ArxSetPointerPos( px , py )<br>
+
+<pre><tt>              px  ... 左下を原点としたＸ座標
+              py  ... 左下を原点としたＹ座標</tt></pre>
+<p>
+例：
+<pre><tt>          CALL ArxSetPointerPos 640,480  /* (640,480)にポインタを移動 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryMouseButton"></a><hr><h3 align=left>●ArxQueryMouseButton</h3><div align=right>
+                                                    [KEY][MOU][WIN][OTH]</div>
+<p>
+機能：現行のマウスボタンの状態を取得します<br>
+<p>
+構文：rc = ArxQueryMouseButton()<br>
+<p>
+　この関数は、マウスのボタン数及びそのON/OFF状態を表す数値（0=OFF,1=ON）が、１スペース区切りで繋がった文字列を戻します。<br>
+<p>
+例：
+<pre><tt>          rc = ArxQueryMouseButton()
+                /* ３ボタンマウスで、ボタン３のみが押し下げられている
+                                      場合、戻り値は「3 0 0 1」となる */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxPutMouseButton"></a><hr><h3 align=left>●ArxPutMouseButton</h3><div align=right>
+                                          [3.3][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：模擬的にマウスボタン操作を行います<br>
+<p>
+構文：rc = ArxPutMouseButton( button , action )<br>
+
+<pre><tt>              button  ... 操作対象ボタン（1-3の数値）
+              action  ... 操作内容（省略可、複数指定可）</tt></pre>
+<p>
+　操作内容に指定できる文字列は、以下の通りです。<br>
+
+<pre><tt>          DOWN           ... 押し下げ
+          UP             ... 押し下げ状態解除
+          CLICK          ... シングルクリック
+          DBLCLK         ... ダブルクリック
+          CLICKPROCESS   ... シングルクリック工程
+          DBLCLKPROCESS  ... ダブルクリック工程</tt></pre>
+<p>
+　マウスボタン操作は、現行のマウスポインタ位置（の下にあるウィンドウ）に対して行われます。<br>
+　厳密に「シングルクリック」や「ダブルクリック」操作をシミュレートする場合は、<br>
+
+<pre><tt>        シングルクリック ... DOWN → UP → CLICK
+        ダブルクリック   ... DOWN → UP → CLICK → DBLCLK → UP</tt></pre>
+<p>
+　と、操作内容を複数指定する必要があります。<br>
+　「CLICKPROCESS」「DBLCLKPROCESS」を指定すると、それぞれ上記「シングルクリック」「ダブルクリック」の一連の操作を自動的に行います。<br>
+　なお、操作内容を指定せずに <b>ArxPutMouseButton</b> を呼び出した場合、「CLICKPROCESS」（シングルクリック）処理を行います。<br>
+<p>
+　<b>ArxQueryMouseButton</b> を<a href="#他のセッションでの使用">他のセッションから呼び出す</a>場合、あらかじめ ALWALTFX を実行させておく必要があります。<br>
+（設定状態は問いません...「全機能休止」状態でも構わない）<br>
+<p>
+　この関数を使用するにあたっての注意点を、以下に列挙します。<br>
+<p>
+<!--・--><ul>
+<li>
+　Win-OS2アプリ（シームレス）に対しては効果がありません。<br>
+（これは後述の <a href="#ArxReplaceMouseButton">ArxReplaceMouseButton</a> も同様）<br>
+<p>
+<!--・-->
+<li>
+　この関数を使用することにより、物理的なマウス操作では不可能なマウスボタン操作（例えば、「了解」「取消」両方のボタンをクリックするなど）を、仮想的に実現することができます。が、大抵のアプリはそんな事を念頭にプログラムされていないと思われますので、あまり無茶なマウスボタン操作を指定しないようにした方が賢明です。<br>
+<p>
+<!--・-->
+<li>
+　REXXスクリプトが、「<b>マウス操作拡張：REXXマクロ</b>」機能から呼び出されている場合、模擬入力指定に、REXXマクロ機能を呼び出すのと同じマウス操作割り当てを指定してこの関数を使用すると、マクロ実行 → 模擬マウスボタン操作 → マクロ実行...の<b>無限ループ</b>に陥る事になるので、そういうプログラミングは行わないように、注意して下さい。<br>
+　なお、この現象を発生させてしまった場合は、「Ctrl+ESC」操作で「<i>このプログラムは，システムの要求に応答していません。</i>」ウィンドウを出して、<b>ALWALTFX を強制終了させて下さい</b>。<br>
+</ul><p>
+例：
+<pre><tt>          CALL ArxPutMouseButton 1  /* ボタン１のシングルクリックを行う */
+
+          CALL ArxPutMouseButton 2,'DBLCLKPROCESS'
+                                    /* ボタン２のダブルクリックを行う */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxReplaceMouseButton"></a><hr><h3 align=left>●ArxReplaceMouseButton</h3><div align=right>
+                                                              [3.1][MOU]</div>
+<p>
+機能：REXXスクリプトを呼び出した、現行のマウスボタン操作を置換します<br>
+<p>
+構文：rc = ArxReplaceMouseButton( button , action )<br>
+
+<pre><tt>              button  ... 操作対象ボタン（1-3の数値）、または置換の無効指示
+              action  ... 操作内容</tt></pre>
+<p>
+　各引数の指定方法は、<a href="#ArxPutMouseButton">ArxPutMouseButton</a> とほぼ同じです。<br>
+（ただし、操作対象ボタンを指定した場合、操作内容を必ず１つ指定する必要があります）<br>
+（あと、操作内容に「CLICKPROCESS」及び「DBLCLKPROCESS」は指定できません）<br>
+<p>
+　<a href="#ArxPutMouseButton">ArxPutMouseButton</a> と <b>ArxReplaceMouseButton</b> の違いですが、<a href="#ArxPutMouseButton">ArxPutMouseButton</a> の場合、（マクロ終了後に）新しくマウスボタン操作状態を作り出すのに対し、<b>ArxReplaceMouseButton</b> では、（マクロを呼び出した）現行マウスボタン操作そのものを、新しいマウスボタン操作に置換し、アプリケーションに渡します。<br>
+　また、<b>ArxReplaceMouseButton</b> で指定された新しいマウスボタン操作は、REXXマクロ機能を呼び出すのと同じマウスボタン割り当てを指定しても、REXXマクロ機能の（再）呼び出し対象にはなりません。<br>
+<p>
+　この関数で行われる処理は、あくまでも現行マウスボタン操作の置換ですので、<b>ArxReplaceMouseButton</b> を複数回呼び出しても、結果が有効であるのは最後の１回のみです。<br>
+<p>
+　置換コマンドに「<b>DROP</b>」を指定すると、REXXマクロを呼び出したマウスボタン操作を破棄...つまり、そのマウスボタン操作が行われなかったように処理を行います。<br>
+　同じく、「<b>CANCEL</b>」を指定すると、それまでに <b>ArxReplaceMouseButton</b> で指定したマウスボタン操作置換を取り消します。<br>
+<p>
+　なお、同一スクリプト内で <a href="#ArxPutMouseButton">ArxPutMouseButton</a> と <b>ArxReplaceMouseButton</b> の両方を使用した場合は、記述順序に関係無く、スクリプト終了後に<b>ArxReplaceMouseButton</b> → <a href="#ArxPutMouseButton">ArxPutMouseButton</a> の順序でマウスボタン操作処理が行われます。<br>
+<p>
+　この関数は、「<b>マウス操作拡張：REXXマクロ</b>」機能から呼び出されている場合のみ、使用可能です。<br>
+（それ以外の場合、何も処理を行わず 0 を返す）<br>
+<p>
+蘊蓄：<br>
+<p>
+　マウスボタン操作は、例えば「クリック」と一口に言っても、ボタン「ダウン」→「アップ」→「クリック」、という過程を経て生成されます。<br>
+　そのため、何らかのマウス操作を直接「クリック」に置換しても、実際にクリック操作を行った時と同じ結果が得られるとは限りません。<br>
+<i>（と言うか、かなりの確立で誤動作します<nobr><tt>^^;</tt></nobr>）</i><br>
+　また、その置換された元のメッセージの種類如何では、その直後の（実際の）マウスボタン操作に、何らかの影響が出る可能性があります。例えば、「クリック」という操作は本来、「ダウン」と「アップ」の操作がペアになって初めて発生する操作ですので、そのどちらかが、<b>ArxReplaceMouseButton</b> によって別の操作に置換されてしまうと、「クリック」操作が<b>発生しなくなったり、変なタイミングで発生したり</b>もしますので、注意して使用するようにして下さい。<br>
+<p>
+例：
+<pre><tt>          CALL ArxReplaceMouseButton 'DROP'
+                                  /* 現行マウスボタン操作を無効にする */
+
+          CALL ArxReplaceMouseButton 'CANCEL'
+                                  /* 現行マウスボタン操作を有効に戻す */
+
+          CALL ArxReplaceMouseButton 1,'DOWN'
+                /* 現行マウスボタン操作を「ボタン１ダウン」に置換する */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryScreenSize"></a><hr><h3 align=left>●ArxQueryScreenSize</h3><div align=right>
+                                                    [KEY][MOU][WIN][OTH]</div>
+<p>
+機能：画面解像度を取得します<br>
+<p>
+構文：rc = ArxQueryScreenSize()<br>
+<p>
+　この関数は、Ｘ方向/Ｙ方向の値が、１スペース区切りで繋がった文字列を戻し
+ます。<br>
+<p>
+例：
+<pre><tt>          PARSE VALUE ArxQueryScreenSize() WITH cx cy
+                                        /* 変数 cx にＸ方向の、
+                                                cy にＹ方向の値が入る */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryWindowInfo"></a><hr><h3 align=left>●ArxQueryWindowInfo</h3><div align=right>
+                               [3.1][3.14][3.2][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：ウィンドウの情報を取得します。<br>
+<p>
+構文：rc = ArxQueryWindowInfo( type , stem )<br>
+
+<pre><tt>              type  ... 取得対象ウィンドウ
+              stem  ... 情報が入る変数（ステム）名</tt></pre>
+<p>
+　取得対象ウィンドウには、大きく分けて２種類の指定方法があります。<br>
+　１つの方法は、（REXXスクリプトが呼び出された際にアクティブになっている）メイン・ウィンドウを基準とした間接的な指定です。<br>
+　'<B>ID:</B>' の接頭文字列に続いて、以下の文字列の何れかか、アクティブ・ウィンドウ（メイン・ウィンドウ）直下の子ウィンドウのID値を追記します。<br>
+
+<pre><tt>          SYSMENU       ... システムメニュー・ウィンドウ
+          TITLEBAR      ... タイトルバー・ウィンドウ
+          MINMAX        ... 最大/最小化ボタン・ウィンドウ
+          MENU          ... メニュー・ウィンドウ
+          VERTSCROLL    ... 縦スクロールバー・ウィンドウ
+          HORZSCROLL    ... 横スクロールバー・ウィンドウ
+          CLIENT        ... クライアント・ウィンドウ
+
+  　注：<b>ArxQueryWindowInfo</b> を<a href="#他のセッションでの使用">他のセッションから呼び出す</a>場合、
+  　　　この 'ID:' による指定は行えません。</tt></pre>
+<p>
+　もう１つの方法は、ウィンドウ・ハンドル値の直接指定です。<br>
+　'<B>HWND:</B>' の接頭文字列に続いて、以下の文字列の何れかか、ウィンドウ・ハンドル値を追記します。<br>
+
+<pre><tt>          HERE          ... REXXスクリプトを呼び出したウィンドウ
+          MAIN          ... メイン・ウィンドウ
+          CURRENTFRAME  ... フレーム・ウィンドウ
+          PARENT        ... フレーム・ウィンドウ（もしくはメイン・ウィン<!--
+                            -->ドウ）の親ウィンドウ
+          FOCUS         ... フォーカス・ウィンドウ
+          ACTIVE        ... アクティブ・ウィンドウ
+          DESKTOP       ... デスクトップ・ウィンドウ
+
+  　注：<b>ArxQueryWindowInfo</b> を<a href="#他のセッションでの使用">他のセッションから呼び出す</a>場合、
+  　　　'FOCUS' 'ACTIVE' 'DESKTOP' のみ指定可能です。
+
+  　注：'DESKTOP' 以外の文字列は、接頭文字列が 'HWND:' ではなく 'ID:' で
+  　　　も、正常に動作します（旧バージョンとの互換性維持のため）。</tt></pre>
+<p>
+　接頭文字列 '<B>ID:</B>' '<B>HWND:</B>' は省略可能です。<br>
+　省略された場合、指定された数値（または文字列）から、ウィンドウID値か、ウィンドウ・ハンドル値のどちらとして取り扱うか、自動判別を行います。<br>
+（数値指定の場合、1 以上且つ 65536 未満でウィンドウID値、65536 以上でウィンドウ・ハンドル値だと見なす）<br>
+
+<pre><tt>　　※例外として、ウィンドウID値 0 を引数として指定する場合に限り、接頭文
+　　　字列 '<B>ID:</B>' を必ず明記する必要があります。</tt></pre>
+
+　なお、上記の仕様に矛盾する引数指定（例えば、接頭文字列 '<B>ID:</B>' を指定しながら、ウィンドウ・ハンドル値に相当する値(65536以上)を指定した場合など）を行った場合、関数は何も処理を行わず、0 を返します。<br>
+（解析できない不正な文字列を指定した場合は、エラーになる）<br>
+<p>
+　メイン・ウィンドウとフレーム・ウィンドウの違いですが、前者は、ウィンドウ階層上で、デスクトップ・ウィンドウ直下にあたるウィンドウの事を指し、後者は、フォーカス・ウィンドウからウィンドウ階層を遡り、最初にたどり着いたフレーム・ウィンドウの事を指します。<br>
+　後者の場合、多重のフレーム・ウィンドウから構成されるアプリケーション（例えば、オンラインヘルプの VIEW.EXE や、各種設定ノートブック）において、フォーカスが当たっている最も内側のフレームを、処理対象に指定する事が可能です。<br>
+（因みに、唯一のフレーム・ウィンドウから構成される(シンプルな)アプリケーションの場合、双方が戻す値は同一になります）<br>
+<p>
+　なお、フレーム・ウィンドウ指定時に、そのウィンドウ階層上でフレーム属性を持つウィンドウが存在しない（例えば WarpCenter）場合は、<b>ArxQueryWindowInfo</b>呼び出しは失敗に終わります（戻り値=0）。<br>
+<p>
+　REXXスクリプトが「<b>ウィンドウ制御：REXXマクロ</b>」機能から呼び出されている場合、取得対象ウィンドウに、フォーカス・ウィンドウ(FOCUS)を指定できない可能性があります（戻り値=0）。<br>
+　例えば、「WM_ACTIVATE(TRUE)」がトリガである場合、アクティブ・ウィンドウが切り替わったばかりで、そのウィンドウの何処にフォーカスが当たるのか、まだ決定していない（つまり、フォーカスウィンドウが存在しない）、などが考えられます。<br>
+<p>
+　関数が正常に終了すると、変数 stem に以下の値が設定されます。<br>
+
+<pre><tt>          stem.HWND    ... ウィンドウ・ハンドル（32bit16進）
+          stem.X       ... Ｘ座標（親ウィンドウからの相対位置）
+          stem.Y       ... Ｙ座標（同上）
+          stem.GX      ... Ｘ座標（画面上での絶対位置）
+          stem.GY      ... Ｙ座標（同上）
+          stem.CX      ... Ｘ方向サイズ
+          stem.CY      ... Ｙ方向サイズ
+          stem.FL      ... ウィンドウ・フラグ（32bit16進）
+          stem.ID      ... ウィンドウ・ID値（32bit16進）
+          stem.STYLE   ... ウィンドウ・スタイル（32bit16進）
+          stem.TITLE   ... タイトルバー文字列
+          stem.CLASS   ... ウィンドウ・クラス名
+          stem.MODULE  ... ウィンドウ作成者（実行ファイル名）
+          stem.PID     ... 　　　〃　　　　（プロセスＩＤ）
+          stem.TID     ... 　　　〃　　　　（スレッドＩＤ）</tt></pre>
+<p>
+　フラグ/スタイルは、PM アプリケーション開発に精通されている方のために用意してあります。<br>
+（FL は構造体 SWP のメンバ fl の値）<br>
+（STYLE は PM-API の WinQueryWindowULong(hwnd,QWL_STYLE) の戻り値）<br>
+<p>
+　タイトルバー文字列は、そのウィンドウにタイトルバーが存在する場合のみ設定されます。<br>
+（その他の場合は、長さ 0 の文字列になる）<br>
+　また、<a href="#他のセッションでの使用">他のセッションから呼び出す</a>場合、タイトルバー文字列を取得するためには、あらかじめ ALWALTFX を実行させておく必要があります。<br>
+（設定状態は問いません...「全機能休止」状態でも構わない）<br>
+<p>
+　クラス名は、そのウィンドウの種類の分別するのに役立ちます。<br>
+　例えば、PM 標準コントロール（部品）のクラス名は、以下の通りです。<br>
+
+<pre><tt>          #1   ... フレーム
+          #2   ... コンボボックス
+          #3   ... ボタン
+          #4   ... メニュー
+          #5   ... 静的制御
+          #6   ... 単一行入力フィールド
+          #7   ... リストボックス
+          #8   ... スクロールバー
+          #9   ... タイトルバー
+          #10  ... 複数行入力フィールド
+          #32  ... スピンボタン
+          #37  ... コンテナー
+          #38  ... スライダー
+          #39  ... バリューセット
+          #40  ... ノートブック</tt></pre>
+<p>
+　ウィンドウ作成者（実行ファイル名）は、そのウィンドウが、REXXスクリプトを呼び出したウィンドウと同一プロセスの場合のみ、文字列が設定されます。
+（別プロセス/別セッションの場合は、長さ 0 の文字列になる）<br>
+<p>
+例：
+<pre><tt>          CALL ArxQueryWindowInfo 'FOCUS','info'
+          IF info.CLASS='#6' | info.CLASS='#10' THEN DO
+              /* 以下、入力フィールドにフォーカスが当たっている場合のみ
+                 処理を続行 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxSetWindowPos"></a><hr><h3 align=left>●ArxSetWindowPos</h3><div align=right>
+                               [3.1][3.14][3.2][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：ウィンドウ位置/サイズの設定を行います。<br>
+<p>
+構文：rc = ArxSetWindowPos( type , x , y , cx , cy , z )<br>
+
+<pre><tt>              type    ... 設定対象ウィンドウ
+              x       ... Ｘ座標（省略可）
+              y       ... Ｙ座標（省略可）
+              cx      ... Ｘ方向サイズ（省略可）
+              cy      ... Ｙ方向サイズ（省略可）
+              z       ... Ｚ順配列位置（省略可）</tt></pre>
+<p>
+　設定対象ウィンドウの指定法は、前述 <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a> と同じです。<br>
+<p>
+　Ｚ順配列位置には、以下の文字列の何れかを指定します。<br>
+
+<pre><tt>          TOP         ... 最前列にウィンドウを移動する
+          BOTTOM      ... 最後列にウィンドウを移動する</tt></pre>
+<p>
+　各引数を省略した場合は、現在の位置/サイズを保持します。<br>
+<p>
+　なお、PM-API の WinSetWindowPos と引数の順序が異なるので、PM プログラマの方は注意して下さい。<br>
+<p>
+　あと、PM における座標指定は、左下が原点となっていますので、（左上が原点である）MS-Windows プログラマ等の方は注意して下さい。<nobr><tt>:-)</tt></nobr><br>
+<p>
+例：
+<pre><tt>          CALL ArxSetWindowPos 'MAIN',0,0,640,480
+                           /* VGA画面一杯の位置へウィンドウを移動する */
+
+          CALL ArxSetWindowPos 'MAIN',,,,,'BOTTOM'
+                                      /* 最後列へウィンドウを移動する */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryWindowString"></a><a name="ArxSetWindowString"></a><hr><h3 align=left>●ArxQueryWindowString / ArxSetWindowString</h3><div align=right>
+                               [3.1][3.14][3.2][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：ウィンドウの文字列の取得/設定を行います。<br>
+<p>
+構文：rc = ArxQueryWindowString( type , name )<br>
+　　　rc = ArxSetWindowString( type , string )<br>
+
+<pre><tt>              type    ... 取得/設定対象ウィンドウ
+              name    ... 文字列が入る変数名
+              string  ... 設定する文字列</tt></pre>
+<p>
+　取得/設定対象ウィンドウの指定法は、前述 <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a> と同じです。<br>
+<p>
+　これらの関数を<a href="#他のセッションでの使用">他のセッションから呼び出す</a>場合、あらかじめ ALWALTFX を実行させておく必要があります。<br>
+（設定状態は問いません...「全機能休止」状態でも構わない）<br>
+<p>
+例：
+<pre><tt>          CALL ArxQueryWindowString 'TITLEBAR','str'
+             /* 変数 str にタイトルバー・ウィンドウの文字列を取得する */
+
+          CALL ArxSetWindowString 'FOCUS',''
+                        /* フォーカス・ウィンドウの文字列をクリアする */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxInvalidateRect"></a><hr><h3 align=left>●ArxInvalidateRect</h3><div align=right>
+                                          [3.2][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：ウィンドウの再描画を行います。<br>
+<p>
+構文：rc = ArxInvalidateRect( type )<br>
+
+<pre><tt>              type    ... 再描画対象ウィンドウ（省略可）</tt></pre>
+<p>
+　再描画対象ウィンドウの指定法は、前述 <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a> と同じです。<br>
+　省略された場合は、現行のアクティブ・ウィンドウのみを再描画します。<br>
+<p>
+例：
+<pre><tt>         CALL ArxInvalidateRect 'DESKTOP' /* デスクトップを再描画する */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryWindowHandle"></a><hr><h3 align=left>●ArxQueryWindowHandle</h3><div align=right>
+                                    [3.14][3.2][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：ウィンドウ・ハンドル値を取得します。<br>
+<p>
+構文：rc = ArxQueryWindowHandle( qrywin )<br>
+　　　rc = ArxQueryWindowHandle( 'POINT' , x , y )<br>
+
+<pre><tt>              qrywin  ... 取得対象ウィンドウ（複数指定可）
+              x       ... Ｘ座標（省略可）
+              y       ... Ｙ座標（省略可）</tt></pre>
+<p>
+　この関数は、引数に指定された条件に合致するウィンドウが存在すれば、そのハンドル値（32bit16進値）を戻します。<br>
+（該当するウィンドウが存在しない場合、'H00000000' を返す）<br>
+<p>
+　取得対象ウィンドウの指定法は、前述 <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a> と同じです。<br>
+　取得対象ウィンドウを連ねて指定すると、最初に指定された引数に合致するウィンドウを基準にして、次々と引数に指定されたウィンドウを検索していきます。<br>
+　また、連ねて指定する取得対象ウィンドウの指定には、前述 <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a> と同様の指定以外に、PM-API である WinQueryWindow() の引数のシンボルの接頭部(QW_)を除いた文字列も指定可能です。<br>
+<p>
+　１つめの引数に、文字列「<b>POINT</b>」が指定されると、スクリーン上の特定の座標（座標指定が省略された場合は、マウスカーソル位置）下のウィンドウ・ハンドル値を返します。<br>
+　また、<a href="#他のセッションでの使用">他のセッションからの呼び出し</a>で「<b>POINT</b>」指定を用いる場合、あらかじめ ALWALTFX を実行させておく必要があります。<br>
+（設定状態は問いません...「全機能休止」状態でも構わない）<br>
+
+<pre><tt>　　※そのウィンドウが、マウスボタン入力に対して「透過」の指定が成されて
+　　　いる場合、そのウィンドウの下（後ろ）のウィンドウ・ハンドル値を返し
+　　　ます。</tt></pre>
+<p>
+例：
+<pre><tt>          hwparent = ArxQueryWindowHandle('HWND:H80001234','PARENT')
+                     /* ハンドル 80001234 のウィンドウの親ウィンドウ */
+
+          hwgparent = ArxQueryWindowHandle('HERE','PARENT','PARENT')
+                     /* REXXスクリプト呼び出しウィンドウの、親ウィンドウ
+                        の親ウィンドウ */
+
+          hwpointer = ArxQueryWindowHandle('POINT')
+                     /* マウスカーソル位置の直下のウィンドウ */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxEnumWindowHandle"></a><hr><h3 align=left>●ArxEnumWindowHandle</h3><div align=right>
+                                    [3.14][3.2][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：子ウィンドウ・ハンドル値を取得します。<br>
+<p>
+構文：rc = ArxEnumWindowHandle( parent , stem )<br>
+
+<pre><tt>              parent  ... 取得対象親ウィンドウ
+              stem    ... 情報が入る変数（ステム）名</tt></pre>
+<p>
+　取得対象親ウィンドウの指定法は、前述 <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a> と同じです。<br>
+　関数が正常に終了すると、変数 stem.0 に子ウィンドウの数が、以降 stem.1、stem.2、stem.3 ...に、全ての子ウィンドウ・ハンドル値（32bit16進）が設定されます。<br>
+<p>
+例：
+<pre><tt>          CALL ArxEnumWindowHandle 'MAIN','enum'
+            /* メイン・ウィンドウの子ウィンドウ・ハンドルを取得 */
+
+          CALL ArxEnumWindowHandle 'DESKTOP','enum'
+            /* デスクトップ・ウィンドウの子ウィンドウ・ハンドルを取得 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxIsWindow"></a><hr><h3 align=left>●ArxIsWindow</h3><div align=right>
+                                          [3.2][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：指定されたウィンドウが存在するかどうかをチェックします。<br>
+<p>
+構文：rc = ArxIsWindow( type )<br>
+
+<pre><tt>              type    ... 調査対象ウィンドウ</tt></pre>
+<p>
+　調査対象ウィンドウの指定法は、前述 <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a> と同じです。<br>
+<p>
+　この関数は、指定されたウィンドウが存在すると 1 を、存在しないか、引数に不正な文字列（または数値）の指定を行うと 0 を返します。<br>
+（引数の個数(必ず１つ)の誤りは、他の関数と同様にエラーになります）<br>
+<p>
+例：
+<pre><tt>          IF ArxIsWindow('MENU') THEN DO
+              /* 以下、メニュー・ウィンドウが存在する場合のみ処理続行 */
+
+          exist = ArxIsWindow(<a href="#ArxQueryWindowHandle">ArxQueryWindowHandle</a>('MAIN','ID:123'))
+              /* メイン・ウィンドウの、ID値が 123 の子ウィンドウの存在を
+                 チェック */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxSysCommand"></a><hr><h3 align=left>●ArxSysCommand</h3><div align=right>
+                                                    [3.1][KEY][MOU][WIN]</div>
+<p>
+機能：システムメニューのコマンドを実行します。<br>
+<p>
+構文：rc = ArxSysCommand( command )<br>
+
+<pre><tt>              command  ... 実行コマンド</tt></pre>
+<p>
+　実行コマンドには、コマンドＩＤ値(1～65535)か、以下の文字列のどれか１つを指定します。<br>
+
+<pre><tt>          CLOSE           ... クローズ
+          RESTORE         ... 復元
+          MOVE            ... 移動
+          SIZE            ... サイズ変更
+          MINIMIZE        ... 最大化
+          MAXIMIZE        ... 最小化
+          HIDE            ... 隠す
+          OPENICON        ... オープン.アイコン表示
+          OPENTREE        ... オープン.ツリー表示
+          OPENDETAILS     ... オープン.詳細表示
+          SETTINGS        ... プロパティー
+          OPENPARENT      ... 親ウィンドウのオープン
+          PASTE           ... 貼り付け
+          FIND            ... 検索
+          VIEWICON        ... 表示.アイコン表示
+          VIEWTREE        ... 表示.ツリー表示
+          VIEWDETAILS     ... 表示.詳細表示
+          VIEWRENEW       ... 表示.最新表示
+          SORTOBJNAME     ... 分類.名前
+          SORTEXT         ... 分類.拡張子
+          SORTOBJTYPE     ... 分類.タイプ
+          SORTREALNAME    ... 分類.実名
+          SORTSIZE        ... 分類.サイズ
+          SORTWRITEDATE   ... 分類.最終書き込み日付
+          SORTACCESSDATE  ... 分類.最終アクセス日付
+          SORTCREATEDATE  ... 分類.作成日付
+          ROLLUP          ... ロールアップ
+          ROLLDOWN        ... ロールダウン
+          ROLLUP?         ... ロールアップ状態確認
+          WPSWIN?         ... WorkplaceShellのウィンドウか否か確認
+          FOLDER?         ... フォルダか否か確認</tt></pre>
+<p>
+　各種状態確認コマンドは、REXXスクリプト実行時にアクティブなウィンドウを対象に、真の時に 1、偽の時に 0 を返します。<br>
+<p>
+　WorkplaceShellのウィンドウやフォルダに依存したコマンドは、アクティブウィンドウがそれらのウィンドウである場合のみ、使用可能です。<br>
+　ロールアップ/ダウンの指定は、ALWALTFX の設定でロールアップ/ダウン機能の（キー操作/マウス操作/システムメニューのうち）どれか１つを有効にしている場合のみ、使用可能です。<br>
+<p>
+　REXXスクリプトが、「<b>ウィンドウ制御：REXXマクロ</b>」機能の「WM_COMMAND」または「WM_SYSCOMMAND」をトリガとして呼び出されている場合、コマンドＩＤに、REXXマクロ機能を呼び出すのと同じＩＤを指定してこの関数を使用すると、マクロ実行 → コマンド通知 → マクロ実行...の<b>無限ループ</b>に陥る事になるので、そういうプログラミングは行わないように、注意して下さい。<br>
+　なお、この現象を発生させてしまった場合は、「Ctrl+ESC」操作で「<i>このプログラムは，システムの要求に応答していません。</i>」ウィンドウを出して、<b>ALWALTFXを強制終了させて下さい</b>。<br>
+<p>
+例：
+<pre><tt>          IF ArxSysCommand('FOLDER?') THEN    /* フォルダであれば、 */
+              CALL ArxSysCommand 'VIEWRENEW'  /* 「最新表示」を行う */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxReplaceCommand"></a><hr><h3 align=left>●ArxReplaceCommand</h3><div align=right>
+                                                              [3.1][WIN]</div>
+<p>
+機能：REXXスクリプトを呼び出した、コマンド・メッセージを置換します。<br>
+<p>
+構文：rc = ArxReplaceCommand( command )<br>
+
+<pre><tt>              command  ... 置換コマンド、または置換の無効指示</tt></pre>
+<p>
+　置換コマンドに指定できる文字列は、前述 <a href="#ArxSysCommand">ArxSysCommand</a> とほぼ同じです。<br>
+（ただし、各種状態確認コマンドは、使用できません）<br>
+<p>
+　<a href="#ArxSysCommand">ArxSysCommand</a> と <b>ArxReplaceCommand</b> の違いですが、<a href="#ArxSysCommand">ArxSysCommand</a> の場合、（マクロ終了後に）新しくコマンド・メッセージを作り出すのに対し、<b>ArxReplaceCommand</b> では、（マクロを呼び出した）現行コマンド・メッセージそのものを、新しいコマンド・メッセージに置換し、アプリケーションに渡します。<br>
+　また、<b>ArxReplaceCommand</b> で指定された新しいコマンド・メッセージは、REXXマクロ機能を呼び出すのと同じコマンド・メッセージを指定しても、REXXマクロ機能の（再）呼び出し対象にはなりません。<br>
+<p>
+　この関数で行われる処理は、あくまでも現行コマンド・メッセージの置換ですので、<b>ArxReplaceCommand</b> を複数回呼び出しても、結果が有効であるのは最後の１回のみです。<br>
+<p>
+　置換コマンドに「<b>DROP</b>」を指定すると、REXXマクロを呼び出したコマンド・メッセージを破棄...つまり、そのコマンド・メッセージ操作が行われなかったように処理を行います。<br>
+　同じく、「<b>CANCEL</b>」を指定すると、それまでに <b>ArxReplaceCommand</b> で指定したコマンド・メッセージ置換を取り消します。<br>
+<p>
+　なお、同一スクリプト内で <a href="#ArxSysCommand">ArxSysCommand</a> と <b>ArxReplaceCommand</b> の両方を使用した場合は、記述順序に関係無く、スクリプト終了後に <b>ArxReplaceCommand</b>→ <a href="#ArxSysCommand">ArxSysCommand</a> の順序でコマンド・メッセージ処理が行われます。<br>
+<p>
+　この関数は、「<b>ウィンドウ制御：REXXマクロ</b>」機能の「WM_COMMAND」または「WM_SYSCOMMAND」をトリガとして呼び出されている場合のみ、使用可能です。<br>
+（それ以外の場合、何も処理を行わず 0 を返す）<br>
+<p>
+例：
+<pre><tt>          CALL ArxReplaceCommand 'DROP'
+                              /* 現行コマンド・メッセージを無効にする */
+
+          CALL ArxReplaceCommand 'CANCEL'
+                              /* 現行コマンド・メッセージを有効に戻す */
+
+          CALL ArxReplaceCommand 'MAXIMIZE'
+                    /* 現行コマンド・メッセージを「最大化」に置換する */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxSendMessage"></a><a name="ArxPostMessage"></a><hr><h3 align=left>●ArxSendMessage / ArxPostMessage</h3><div align=right>
+                                    [3.14][3.2][3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：ウィンドウに対して直接メッセージを送信/通知します。<br>
+<p>
+構文：rc = ArxSendMessage( type , msg , mp1 , mp2 )<br>
+　　　rc = ArxPostMessage( type , msg , mp1 , mp2 )<br>
+
+<pre><tt>              type     ... 送信/通知対象ウィンドウ
+              msg      ... メッセージID
+              mp1,mp2  ... メッセージパラメータ</tt></pre>
+<p>
+　取得対象ウィンドウの指定法は、前述 <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a> と同じです。<br>
+<p>
+　メッセージパラメータに、作業用メモリ（後述の <a href="#ArxAllocTempMem">ArxAllocTempMem</a> で割り当て可能）のポインターを指定したい場合は、'TEMPMEM' を指定します。</br>
+（<a href="#他のセッションでの使用">他のセッションからの呼び出し</a>でない <b>ArxSendMessage</b> のみ指定可能）
+<p>
+　関数が正常に終了すると、それぞれ PM-API の WinSendMsg()、WinPostMsg() の戻り値をそのまま返します。<br>
+（<b>ArxSendMessage</b> は32bit16進値、<b>ArxPostMessage</b> は 0 または 1）<br>
+<p>
+　<b>ArxSendMessage</b> を<a href="#他のセッションでの使用">他のセッションから呼び出す</a>場合、あらかじめ ALWALTFX を実行させておく必要があります。<br>
+（設定状態は問いません...「全機能休止」状態でも構わない）<br>
+<p>
+　これらの関数は、PM アプリケーション開発に精通されている方以外は、使用しないで下さい。<br>
+　また、<b>ArxSendMessage</b> を使用される場合は、メッセージ送信中に（ダイアログが表示される等の）キー入力を要求する処理が行われないのが確実である場面でのみ使用されるよう、特にご注意下さい。<br>
+<p>
+例：
+<pre><tt>          WM_QUIT = 'H002A'
+          CALL ArxPostMessage 'MAIN',WM_QUIT,0,0
+                       /* アプリケーション終了要求(WM_QUIT)を通知する */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryMsgParam"></a><hr><h3 align=left>●ArxQueryMsgParam</h3><div align=right>
+                                                    [3.1][KEY][MOU][WIN]</div>
+<p>
+機能：REXXマクロが呼び出されるきっかけになった、ALWALTFXの機能及びPMメッ<!--　　　-->セージパラメータを参照します。<br>
+<p>
+構文：rc = ArxQueryMsgParam( stem )<br>
+
+<pre><tt>              stem  ... 情報が入る変数（ステム）名</tt></pre>
+<p>
+　関数が正常に終了すると、変数 stem に以下の値が設定されます。<br>
+
+<pre><tt>          stem.TRIGTYPE ... 呼び出した機能
+          stem.HWND     ... ウィンドウ・ハンドル（32bit16進）
+          stem.MSG      ... メッセージID（32bit16進）
+          stem.MP1      ... メッセージパラメータ１（32bit16進）
+          stem.MP2      ... メッセージパラメータ２（32bit16進）</tt></pre>
+<p>
+　呼び出した機能は、ALWALTFX の機能である「<b>キー操作拡張</b>」「<b>マウス操作拡張</b>」「<b>ウィンドウ制御</b>」の、どの「REXXマクロ」機能から呼び出されたかを判別するための文字列（'<b>KEY</b>' '<b>MOU</b>' '<b>WIN</b>' の何れか）です。<br>
+<p>
+例：
+<pre><tt>          CALL ArxQueryMsgParam 'msg'
+          SELECT
+          WHEN msg.TRIGTYPE='KEY' THEN
+             /* 以下、キー操作で呼ばれた場合の処理 */
+          WHEN msg.TRIGTYPE='MOU' THEN
+             /* 以下、マウス操作で呼ばれた場合の処理 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxAllocTempMem"></a><a name="ArxQueryTempMemImage"></a><hr><h3 align=left>●ArxAllocTempMem / ArxQueryTempMemImage</h3><div align=right>
+                                                   [3.14][KEY][MOU][WIN]</div>
+<p>
+機能：作業用メモリを要求するメッセージのための作業用メモリの割り当て及び<!--　　　-->参照を行います。<br>
+<p>
+構文：rc = ArxAllocTempMem( size , aimage )<br>
+　　　rc = ArxQueryTempMemImage( qimage )<br>
+
+<pre><tt>              size    ... 確保するメモリのサイズ(省略可)
+              aimage  ... 作業用メモリにコピーされるバイナリデータ(省略可)
+              qimage  ... 作業用メモリのバイナリデータが入る変数名</tt></pre>
+<p>
+　<b>ArxAllocTempMem</b> において、確保するメモリのサイズか、作業用メモリにコピーされるバイナリデータの何れかは省略可能です。<br>
+（両方省略はできない）<br>
+　確保するメモリのサイズのみが指定された場合、確保されたメモリは初期化されません。また、作業用メモリにコピーされるバイナリデータのみが指定された場合、そのデータの長さ分のメモリが確保されます。<br>
+<p>
+　具体的な使い方は、<a href="#ArxSendMessage">ArxSendMessage</a> を用いて、作業用メモリ（へのポインタ）を要求するメッセージを送付する際に、前もって <b>ArxAllocTempMem</b> でメモリを割り当て、後で <b>ArxQueryTempMemImage</b> でその結果を参照する、という流れになります。<br>
+<p>
+　確保できる作業用メモリは１つのみで、<b>ArxAllocTempMem</b> を呼び出す度に、前に確保した作業用メモリは破棄されます。<br>
+（因みに、REXXスクリプト終了時にも自動的に破棄される）<br>
+<p>
+　これらの関数は、PM アプリケーション開発に精通されている方以外は、使用しないで下さい。<br>
+　また、呼び出された <a href="#ArxSendMessage">ArxSendMessage</a> に対して、割り当てられたその作業用メモリ量で十分かどうかのチェックは行われません（不足すると、アクセス違反で ALWALTFX が落ちます）ので、特にご注意下さい。<br>
+<p>
+例：
+<pre><tt>          /* メイン・ウィンドウのボーダー(枠線)の太さを調べる */
+          WM_QUERYBORDERSIZE = 'H004D'
+          CALL ArxAllocTempMem 8 /* 必要サイズのメモリを割り当て */
+          CALL <a href="#ArxSendMessage">ArxSendMessage</a> 'MAIN',WM_QUERYBORDERSIZE,'TEMPMEM',0
+          CALL ArxQueryTempMemImage 'image' /* メモリ内容を参照 */
+          binx = SUBSTR(image,1,4) /* 幅のバイナリデータ */
+          biny = SUBSTR(image,5,4) /* 高さのバイナリデータ */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQuerySysInfo"></a><a name="ArxQuerySysValue"></a><a name="ArxSetSysValue"></a><hr><h3 align=left>●ArxQuerySysInfo / ArxQuerySysValue / ArxSetSysValue</h3><div align=right>
+                                                    [KEY][MOU][WIN][OTH]</div>
+<p>
+機能：システム情報/システム値の取得/設定を行います。<br>
+<p>
+構文：rc = ArxQuerySysInfo( num , rad )<br>
+　　　rc = ArxQuerySysValue( num , rad )<br>
+　　　rc = ArxSetSysValue( num , val )<br>
+
+<pre><tt>              num  ... システム変数ID、システム値ID
+              rad  ... 戻り値形式（省略可）
+              val  ... システム値に設定する数値</tt></pre>
+<p>
+　IDには、それぞれ DOS/PM-API の DosQuerySysInfo()、WinQuerySysValue()、WinSetSysValue()で指定する引数と同じ値（または、シンボルの接頭部(QSV_,SV_)を除いた文字列）を指定します。<br>
+　戻り値形式には、戻り値（省略時は10進数）に16進数を希望する場合に「<b>HEX</b>」を指定します。その文字列の中に '<b>H</b>' の字が含まれているかどうかで、戻り値形式を何れにするかを決めるので、先頭の１字以外は省略可能です。<br>
+<p>
+　関数が正常に終了すると、それぞれ DosQuerySysInfo()、WinQuerySysValue()、WinSetSysValue() 関数の戻り値をそのまま返します。<br>
+<p>
+　これらの関数は、PM アプリケーション開発に精通されている方以外は、使用しないで下さい。<br>
+<p>
+例：
+<pre><tt>          rc = ArxQuerySysInfo('MS_COUNT','Hex')
+                            /* システム起動後の経過時間を16進数で取得 */
+
+          rc = ArxQuerySysValue('INSERTMODE')
+                            /* 入力フィールドが挿入モードかどうか確認 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxMPFROM2SHORT"></a><a name="ArxMPFROMSH2CH"></a><hr><h3 align=left>●ArxMPFROM2SHORT / ArxMPFROMSH2CH</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：メッセージパラメタ値を作成します。<br>
+<p>
+構文：rc = ArxMPFROM2SHORT( s1 , s2 , rad )<br>
+　　　rc = ArxMPFROMSH2CH( s , c1 , c2 , rad )<br>
+
+<pre><tt>              s1,s2,s  ... short(16bit)値
+              c1,c2    ... char(8bit)値
+              rad  ... 戻り値形式（省略可）</tt></pre>
+<p>
+　OS/2ツールキット（開発環境）で定義されているマクロ、MPFROM2SHORT / MPFROMSH2CH と同じ機能を提供します。<a href="#ArxSendMessage">ArxSendMessage</a> 等と併用して下さい。<br>
+　戻り値形式には、戻り値（省略時は10進数）に16進数を希望する場合に「<b>HEX</b>」を指定します。その文字列の中に '<b>H</b>' の字が含まれているかどうかで、戻り値形式を何れにするかを決めるので、先頭の１字以外は省略可能です。<br>
+<p>
+　なお、MPFROMLONG / MPFROMHWND 等に対応する関数は、用意されていません。<br>
+<p>
+例：
+<pre><tt>          msg = 'H007A' /* WM_CHAR */
+          mp1 = ArxMPFROMSH2CH('H0006',1,1) /* KC_VIRTUALKEY|KC_SCANCODE */
+          mp2 = ArxMPFROM2SHORT(0,'H0F') /* VK_ESC */
+          rc = <a href="#ArxPostMessage">ArxPostMessage</a>('FOCUS',msg,mp1,mp2)</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxCHARXFROMMP"></a><a name="ArxSHORTXFROMMP"></a><hr><h3 align=left>●ArxCHAR...FROMMP / ArxSHORT...FROMMP / ArxSHORT...FROMMR</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：メッセージパラメタ値もしくはリザルト値を分解します。<br>
+<p>
+構文：rc = ArxCHAR1FROMMP( mp , rad )<br>
+　　　rc = ArxCHAR2FROMMP( mp , rad )<br>
+　　　rc = ArxCHAR3FROMMP( mp , rad )<br>
+　　　rc = ArxCHAR4FROMMP( mp , rad )<br>
+　　　rc = ArxSHORT1FROMMP( mp , rad )<br>
+　　　rc = ArxSHORT2FROMMP( mp , rad )<br>
+　　　rc = ArxSHORT1FROMMR( mr , rad )<br>
+　　　rc = ArxSHORT2FROMMR( mr , rad )<br>
+
+<pre><tt>              mp   ... メッセージパラメタ値
+              mr   ... メッセージリザルト値
+              rad  ... 戻り値形式（省略可）</tt></pre>
+<p>
+　OS/2ツールキット（開発環境）で定義されているマクロ、SHORT1FROMMP / CHAR1FROMMP 等と同じ機能を提供します。<a href="#ArxQueryMsgParam">ArxQueryMsgParam</a> 等と併用して下さい。<br>
+（<b>ArxSHORT1FROMMR</b> / <b>ArxSHORT2FROMMR</b> は、それぞれ <b>ArxSHORT1FROMMP</b> / <b>ArxSHORT2FROMMP</b> と全く同じ動作をします...精神衛生上使い分けたい、という方のために用意してあります(笑)）<br>
+　戻り値形式には、戻り値（省略時は10進数）に16進数を希望する場合に「<b>HEX</b>」を指定します。その文字列の中に '<b>H</b>' の字が含まれているかどうかで、戻り値形式を何れにするかを決めるので、先頭の１字以外は省略可能です。<br>
+<p>
+　なお、LONGFROMMP / HWNDFROMMP 等に対応する関数は、用意されていません。<br>
+<p>
+例：
+<pre><tt>          call <a href="#ArxQueryMsgParam">ArxQueryMsgParam</a> 'msg'
+          if msg.MSG='H0000007A' then do /* WM_CHAR */
+              fs = ArxSHORT1FROMMP(msg.MP1)
+              crepeat = ArxCHAR3FROMMP(msg.MP1)
+              scancode = ArxCHAR4FROMMP(msg.MP1)
+              chr = ArxSHORT1FROMMP(msg.MP2)
+              vkey = ArxSHORT2FROMMP(msg.MP2)</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxD2X"></a><hr><h3 align=left>●ArxD2X</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：10進値→16進値変換を行います。<br>
+<p>
+構文：rc = ArxD2X( dec , n )<br>
+
+<pre><tt>              dec  ... 変換対象10進値
+              n    ... 変換対象桁数（1以上、省略可）</tt></pre>
+<p>
+　この関数は、10進値を、先頭に 'H' の字が付加された16進表記に変換します。<br>
+（REXX の関数 D2X() に相当...詳細は「REXX情報」を参照）
+<p>
+　変換対象桁数が省略されると、８桁（32bit）の値を返します。<br>
+　変換対象桁数が指定されると、変換後の値が、下の桁から数えて変換対象桁数に切り詰められ、また必要に応じて、符号拡張も行われます。<br>
+<p>
+例：
+<pre><tt>          say ArxD2X(9)      /* H00000009 ← 出力される文字列 */
+          say ArxD2X(129)    /* H00000081 */
+          say ArxD2X(129,1)  /* H1        */
+          say ArxD2X(129,2)  /* H81       */
+          say ArxD2X(129,4)  /* H0081     */
+          say ArxD2X(257,2)  /* H01       */
+          say ArxD2X(-127,2) /* H81       */
+          say ArxD2X(-127,4) /* HFF81     */
+          say ArxD2X(12,0)   /*           ← エラー */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxX2D"></a><hr><h3 align=left>●ArxX2D</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：16進値→10進値変換を行います。<br>
+<p>
+構文：rc = ArxX2D( hex , n )<br>
+
+<pre><tt>              hex  ... 変換対象16進値
+              n    ... 変換対象桁数（1以上、省略可）</tt></pre>
+<p>
+　この関数は、先頭に 'H' の字が付加された16進表記の文字列を、10進値に変換します。<br>
+（REXX の関数 X2D() に相当...詳細は「REXX情報」を参照）<br>
+<p>
+　変換対象桁数が指定されると、変換前の値を、下の桁から数えて変換対象桁数に切り詰め、また必要に応じて、符号拡張を行ってから、変換します。<br>
+　変換対象桁数が省略されると、符号無し16進値として変換します。<br>
+　何れの場合でも、変換後の値が符号有り32bit値の限界（0x7FFFFFFF）を越えた場合は、負の値を返します。<br>
+<p>
+例：
+<pre><tt>          say ArxX2D('H0E')     /* 14    ← 出力される文字列 */
+          say ArxX2D('H81')     /* 129   */
+          say ArxX2D('HF81')    /* 3969  */
+          say ArxX2D('HFF81')   /* 65409 */
+          say ArxX2D('H81',2)   /* -127  */
+          say ArxX2D('H81',4)   /* 129   */
+          say ArxX2D('HF081',4) /* -3967 */
+          say ArxX2D('HF081',3) /* 129   */
+          say ArxX2D('HF081',2) /* -127  */
+          say ArxX2D('HF081',1) /* 1     */
+          say ArxX2D('HF081',0) /*       ← エラー */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxC2X"></a><hr><h3 align=left>●ArxC2X</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：文字列→16進値変換を行います。<br>
+<p>
+構文：rc = ArxC2X( chr )<br>
+
+<pre><tt>              chr  ... 変換対象文字列</tt></pre>
+<p>
+　この関数は、文字列を、先頭に 'H' の字が付加された16進表記に変換します。<br>
+（REXX の関数 C2X() に相当...詳細は「REXX情報」を参照）<br>
+<p>
+　なお、変換文字列に指定可能な最大長は、128字です。
+<p>
+例：
+<pre><tt>          say ArxC2X('0123'x) /* H0123   ← 出力される文字列 */
+          say ArxC2X('ZD8')   /* H5A4438 */
+          say ArxC2X('あ')    /* H82A0   */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxX2C"></a><hr><h3 align=left>●ArxX2C</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：16進値→文字列変換を行います。<br>
+<p>
+構文：rc = ArxX2C( hex )<br>
+
+<pre><tt>              hex  ... 変換対象16進値</tt></pre>
+<p>
+　この関数は、先頭に 'H' の字が付加された16進表記の文字列を、文字列に変換します。<br>
+（REXX の関数 X2C() に相当...詳細は「REXX情報」を参照）<br>
+<p>
+　なお、変換文字列に指定可能な最大長は、512字です。
+<p>
+例：
+<pre><tt>          say ArxX2C('H48656C6C6F') /* Hello ← 出力される文字列 */
+          say ArxX2C('H373273')     /* 72s   */
+          say ArxX2C('H9')          /*       ← TABを出力 */</tt></pre>
+<font size=6><br></font>
+
+<a name="Arx_LogicOpe"></a><hr><h3 align=left>●ArxNOT / ArxAND / ArxOR / ArxXOR / ArxNAND / ArxNOR</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：32bit論理演算を行います。<br>
+<p>
+構文：rc = ArxNOT( val1 , rad )<br>
+　　　rc = ArxAND( val1 , val2 ... , rad )<br>
+　　　rc = ArxOR( val1 , val2 ... , rad )<br>
+　　　rc = ArxXOR( val1 , val2 ... , rad )<br>
+　　　rc = ArxNAND( val1 , val2 ... , rad )<br>
+　　　rc = ArxNOR( val1 , val2 ... , rad )<br>
+<pre><tt>              val1,val2  ... 演算対象値
+              rad        ... 戻り値形式（省略可）</tt></pre>
+<p>
+　これらの関数は、与えられた数値を符号無し32bit値に展開して論理演算を行い、その結果を（符号有り32bit値で）返します。<br>
+<p>
+　<b>ArxNOT</b> は、演算対象値を１つだけ指定し、それ以外の関数は、演算対象値を２つ以上指定します。<br>
+<p>
+　戻り値形式には、戻り値（省略時は10進数）に16進数を希望する場合に「<b>HEX</b>」を指定します。その文字列の中に '<b>H</b>' の字が含まれているかどうかで、戻り値形式を何れにするかを決めるので、先頭の１字以外は省略可能です。<br>
+<p>
+例：
+<pre><tt>          say ArxNOT(1)                    /* -2 ← 出力される文字列 */
+          say ArxAND(65535,1)                         /* 1           */
+          say ArxOR(7,8,'H')                          /* 'H0000000F' */
+          say ArxXOR('H1234','H8888','HFFFF0000','H') /* 'HFFFF9ABC' */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxQueryAlwaltfxStatus"></a><hr><h3 align=left>●ArxQueryAlwaltfxStatus</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：ALWALTFX及びREXXスクリプトの実行状態の確認を行います。<br>
+<p>
+構文：rc = ArxQueryAlwaltfxStatus( status )<br>
+
+<pre><tt>              status  ... 確認対象</tt></pre>
+<p>
+　確認対象には、以下の文字列のどれか１つを指定します。<br>
+
+<pre><tt>          EXEC?       ... ALWALTFXが実行中か否か確認
+          OTHER?      ... <a href="#他のセッションでの使用">他セッションからの呼び出し</a>（後述）か否か確認
+          HWND        ... ALWALTFXのメイン・ウィンドウ・ハンドル</tt></pre>
+<p>
+　ALWALTFXのメイン・ウィンドウ・ハンドルは、32bit16進値で返され、それ以外は、真の時に 1、偽の時に 0 を返します。<br>
+<p>
+　例えば、<a href="#他のセッションでの使用">他セッションからの呼び出し</a>（後述）が可能な関数の中には、ALWALTFX が実行中でないと正しく動作しない関数があります。<br>
+（具体的には、<a href="#ArxPutMouseButton">ArxPutMouseButton</a>、<a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a>、<a href="#ArxQueryWindowString">ArxQueryWindowString</a>、<a href="#ArxSetWindowString">ArxSetWindowString</a>、<a href="#ArxQueryWindowHandle">ArxQueryWindowHandle</a>、<a href="#ArxSendMessage">ArxSendMessage</a>）<br>
+　それらの関数を用いる場合、この関数を用いて、前もって ALWALTFX が実行中であるか否か等の確認を行う事が出来ます。<br>
+<p>
+例：
+<pre><tt>          IF \ArxQueryAlwaltfxStatus('EXEC?') THEN EXIT
+                                   /* ALWALTFX が実行中でない → 中断 */</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxLoadFuncs"></a><a name="ArxDropFuncs"></a><hr><h3 align=left>●ArxLoadFuncs / ArxDropFuncs</h3><div align=right>
+                                                              [3.4][OTH]</div>
+<p>
+機能：REXXマクロ関数の一括ロード/アンロードを行います。<br>
+<p>
+構文：rc = ArxLoadFuncs()<br>
+　　　rc = ArxDropFuncs()<br>
+<p>
+　<a href="#他のセッションでの使用">他セッションからの呼び出し</a>（後述）が可能な関数を全て一括ロード/アンロードします。<br>
+<p>
+　この関数は、ALWALTFX の各「REXXマクロ」機能で実行されるスクリプトファイルからは呼び出せません。<br>
+（各関数のロード/アンロード処理は自動で行われるため、呼び出す必要は無い）<br>
+　「RXFUNCADD」で登録すれば呼び出せますが、その場合は何の処理も行わず、0 を返します。<br>
+<p>
+例：
+<pre><tt>          CALL RxFuncAdd 'ArxLoadFuncs','ALWAREXX','ArxLoadFuncs'
+          CALL ArxLoadFuncs
+
+          /* ここに処理内容を記述 */
+
+          CALL ArxDropFuncs</tt></pre>
+<font size=6><br></font>
+
+<a name="ArxVersion"></a><hr><h3 align=left>●ArxVersion</h3><div align=right>
+                                               [3.4][KEY][MOU][WIN][OTH]</div>
+<p>
+機能：REXXマクロ関数のバージョンを取得します。<br>
+<p>
+構文：rc = ArxVersion()<br>
+<p>
+　バージョンは、下位２桁がマイナーバージョン、それより上位の桁がメジャーバージョンである10進数で返されます。<br>
+（例えば、バージョンが 3.4 の場合は '340' が返る）<br>
+<p>
+例：
+<pre><tt>          IF RXFUNCQUERY('ArxVersion') THEN EXIT
+          IF ArxVersion()=340 THEN DO
+              /* バージョン固有の処理内容を記述 */
+          END</tt></pre>
+<font size=7><br></font>
+
+
+<a name="他のセッションでの使用"></a><hr><h2 align=left>■他のセッションでの使用</h2>
+<p>
+　これまでに説明した「REXXマクロ」機能用の関数のうち、幾つか...具体的には以下に列挙するとおり...は、ALWALTFX 以外のセッションでも使用できます。<br>
+
+<pre><tt>        <a href="#ArxAlarm">ArxAlarm</a>
+        <a href="#ArxBeep">ArxBeep</a>
+        <a href="#ArxQueryACSKeyState">ArxQueryACSKeyState</a>
+        <a href="#ArxQueryPointerPos">ArxQueryPointerPos</a>
+        <a href="#ArxSetPointerPos">ArxSetPointerPos</a>
+        <a href="#ArxQueryMouseButton">ArxQueryMouseButton</a>
+        <a href="#ArxPutMouseButton">ArxPutMouseButton</a>
+        <a href="#ArxQueryScreenSize">ArxQueryScreenSize</a>
+        <a href="#ArxQueryWindowInfo">ArxQueryWindowInfo</a>
+        <a href="#ArxSetWindowPos">ArxSetWindowPos</a>
+        <a href="#ArxQueryWindowString">ArxQueryWindowString</a>
+        <a href="#ArxSetWindowString">ArxSetWindowString</a>
+        <a href="#ArxInvalidateRect">ArxInvalidateRect</a>
+        <a href="#ArxQueryWindowHandle">ArxQueryWindowHandle</a>
+        <a href="#ArxEnumWindowHandle">ArxEnumWindowHandle</a>
+        <a href="#ArxIsWindow">ArxIsWindow</a>
+        <a href="#ArxSendMessage">ArxSendMessage</a>
+        <a href="#ArxPostMessage">ArxPostMessage</a>
+        <a href="#ArxQuerySysInfo">ArxQuerySysInfo</a>
+        <a href="#ArxQuerySysValue">ArxQuerySysValue</a>
+        <a href="#ArxSetSysValue">ArxSetSysValue</a>
+        <a href="#ArxMPFROM2SHORT">ArxMPFROM2SHORT</a>
+        <a href="#ArxMPFROMSH2CH">ArxMPFROMSH2CH</a>
+        <a href="#ArxCHARXFROMMP">ArxCHAR1FROMMP</a>
+        <a href="#ArxCHARXFROMMP">ArxCHAR2FROMMP</a>
+        <a href="#ArxCHARXFROMMP">ArxCHAR3FROMMP</a>
+        <a href="#ArxCHARXFROMMP">ArxCHAR4FROMMP</a>
+        <a href="#ArxSHORTXFROMMP">ArxSHORT1FROMMP</a>
+        <a href="#ArxSHORTXFROMMP">ArxSHORT2FROMMP</a>
+        <a href="#ArxSHORTXFROMMP">ArxSHORT1FROMMR</a>
+        <a href="#ArxSHORTXFROMMP">ArxSHORT2FROMMR</a>
+        <a href="#ArxD2X">ArxD2X</a>
+        <a href="#ArxX2D">ArxX2D</a>
+        <a href="#ArxC2X">ArxC2X</a>
+        <a href="#ArxX2C">ArxX2C</a>
+        <a href="#Arx_LogicOpe">ArxNOT</a>
+        <a href="#Arx_LogicOpe">ArxAND</a>
+        <a href="#Arx_LogicOpe">ArxOR</a>
+        <a href="#Arx_LogicOpe">ArxXOR</a>
+        <a href="#Arx_LogicOpe">ArxNAND</a>
+        <a href="#Arx_LogicOpe">ArxNOR</a>
+        <a href="#ArxQueryAlwaltfxStatus">ArxQueryAlwaltfxStatus</a>
+        <a href="#ArxLoadFuncs">ArxLoadFuncs</a>
+        <a href="#ArxDropFuncs">ArxDropFuncs</a>
+        <a href="#ArxVersion">ArxVersion</a></tt></pre>
+<font size=6><br></font>
+<p>
+　使用するためには、（ユーティリティー関数などと同じように）スクリプトファイルの先頭で「RXFUNCADD」で別途ロードする必要があります。<br>
+（ALWAREXX.DLL 及び ALWALTFX.DLL が、LIBPATH= の通ったディレクトリに存在する必要がある）<br>
+
+<pre><tt>=== ファイルのトップ ===
+/* 例 */
+CALL RxFuncAdd 'ArxQueryScreenSize','ALWAREXX','ArxQueryScreenSize'
+PARSE VALUE ArxQueryScreenSize() WITH cx cy
+SAY '画面の解像度：横 =' cx '縦 =' cy
+=== ファイルのボトム ===</tt></pre>
+<p>
+　また、ユーティリティー関数における「SysLoadFuncs」のように、一括登録を行う関数（<a href="#ArxLoadFuncs">ArxLoadFuncs</a>）も用意してあります。<br>
+<p>
+　なお、上に列挙した以外の関数を他のセッションから呼び出すと、無条件でエラーになります。<br>
+<font size=7><br></font>
+
+
+<hr><pre><tt>※このファイル及び各サンプルファイルの取り扱いについては、ALWALTFX.DOC の
+　「その他」の内容に準ずるものとします。</tt></pre>
+<p>
+[EOF]<br></body></html>
